@@ -6,5 +6,5 @@
 ### Autores:
 - Fabian Sinti Estefany💙
 - Medrano Quispe Samuel💚
-- Muñoz Ingarcua Piero💛
+- Muñoz Ingaruca Piero💛
 - Roca Hormaza Joan 🧡
