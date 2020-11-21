@@ -1,38 +1,3 @@
-//const grafo = [];
-//console.log(grafo);
-//grafo.push(1);
-//console.log(grafo);
-//grafo.push([1, 2]);
-//grafo.push([2, 1]);
-//const valores = [];
-//for(let i = 0; i < 2; ++i) {
-  //valores.push(i);
-//}
-//grafo.push(valores);
-//console.log(grafo);
-/*for (let i = 0; i < 2; ++i) {*/
-//for (let j = 0; j < 2; ++j) {
-//console.log(grafo[i][j] + " ");
-//}
-//console.log("\n");
-/*}*/
-const aeamanita = () => {
-  let num = document.getElementById("valor");
-  for (let j = 0; j < num; ++j) {
-    for (let i = 0; i < num; ++i) {
-      let doc = document.getElementById("stock");
-      doc.innerHTML = `<table border="2"><tr>`
-      for (let i = 0; i < 2; ++i) {
-        for (let j = 0; j < 2; ++j) {
-          doc.innerHTML += `<td>${grafo[i][j]}</td>`
-        }
-        doc.innerHTML += `</tr><tr>`
-      }
-      doc.innerHTML += `</table>`
-    }
-  }
-}
-
 const graficar = () => {
   let fc = document.getElementById("fc").value;
   let doc = document.getElementById("stock");
@@ -49,7 +14,6 @@ const graficar = () => {
 
 const extraer = () => {
   const matriz = [];
-  const valores = [];
   let fc = document.getElementById("fc").value;
   let k = 0;
   let l = 0;
@@ -64,14 +28,6 @@ const extraer = () => {
       k = 0;
       l++;
     }
-    //console.log(valores);
-    //if (valores.length == fc) {
-      //matriz.push(valores);
-      //console.log(matriz);
-      //for (let j = 0; j < fc; ++j) {
-        //valores.pop();
-      //}
-    //}
   }
   setTimeout(() => {
     for (let i = 0; i < fc; ++i) {
@@ -79,6 +35,148 @@ const extraer = () => {
         console.log(matriz[i][j]);
       }
     }
+    (reflexivo(matriz))
+      ? console.log("La matriz SI es reflexiva")
+      : console.log("La matriz NO es reflexiva");
+    (irreflexivo(matriz))
+      ? console.log("La matriz SI es irreflexiva")
+      : console.log("La matriz NO es irreflexiva");
+    (transitiva(matriz))
+      ? console.log("La matriz SI es transitiva")
+      : console.log("La matriz NO es transitiva");
+    (simetrica(matriz))
+      ? console.log("La matriz SI es simetrica")
+      : console.log("La matriz NO es simetrica");
+    (asimetrica(matriz))
+      ? console.log("La matriz SI es asimetrica")
+      : console.log("La matriz NO es asimetrica");
+    (antisimetrica(matriz))
+      ? console.log("La matriz SI es antisimetrica")
+      : console.log("LA matriz NO es antisimetrica");
     console.log(matriz);
-  }, 1000)
+  }, 500)
+}
+
+const reflexivo = (matriz=[]) => {
+  let fc = matriz.length;
+  let count = 0;
+  for (let i = 0; i < fc; ++i) {
+    for (let j = 0; j < fc; ++j) {
+      if (i == j) {
+        if (matriz[i][j] == 1) {
+          count++;
+        }
+      }
+    }
+  }
+  return (count == fc)
+    ? true
+    : false;
+}
+
+const irreflexivo = (matriz=[]) => {
+  let fc = matriz.length;
+  let count = 0;
+  for (let i = 0; i < fc; ++i) {
+    for (let j = 0; j < fc; ++j) {
+      if (i == j) {
+        if (matriz[i][j] == 0) {
+          count++;
+        }
+      }
+    }
+  }
+  return (count == fc)
+    ? true
+    : false;
+}
+
+const simetrica = (matriz=[]) => {
+  let ok = true;
+  let n = matriz.length;
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (matriz[i][j] != matriz[j][i]) {
+        ok = false;
+        break;
+      }
+    }
+    if (!ok) {
+      break;
+    }
+  }
+  return (ok)
+    ? true
+    : false;
+}
+
+const asimetrica = (matriz=[]) => {
+  let ok = true;
+  let n = matriz.length;
+  if (!irreflexivo(matriz)) {
+    return !ok;
+  }
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (i != j) {
+        if (matriz[i][j] == matriz[j][i] && matriz[i][j] != 0 && matriz[j][i] != 0) {
+          ok = false;
+          break;
+        }
+      }
+    }
+    if (!ok) {
+      break;
+    }
+  }
+  return (ok)
+    ? true
+    : false;
+}
+
+const antisimetrica = (matriz=[]) => {
+  let ok = true;
+  let n = matriz.length;
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (i != j) {
+        if (matriz[i][j] == matriz[j][i] && matriz[i][j] != 0 && matriz[j][i] != 0) {
+          ok = false;
+          break;
+        }
+      }
+    }
+    if (!ok) {
+      break;
+    }
+  }
+  return (ok)
+    ? true
+    : false;
+}
+
+const transitiva = (matriz=[]) => {
+  let transitividad = true;
+  let n = matriz.length;
+  for (let i = 0; i < n; ++i) {
+    for (let j = 0; j < n; ++j) {
+      if (matriz[i][j] == 1) {
+        for (let k = 0; k < n; ++k) {
+          if (matriz[j][k] == 1 && matriz[i][k] == 0) {
+            transitividad = false;
+            break;
+          }
+        }
+      }
+      if (!transitividad) {
+        break;
+      }
+    }
+    if (!transitividad) {
+      break;
+    }
+  }
+  return (transitividad)
+    ? true
+    : false;
 }
