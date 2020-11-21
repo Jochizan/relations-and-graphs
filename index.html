@@ -11,18 +11,49 @@
     <title>Grafos</title>
   </head>
   <body onload="timeStatus()">
-    <h1>Matrices Booleanas</h1>
     <header>
-      <form action="" name="form_reloj">
-        <input type="text" name="reloj" size="10">
-      </form>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="font-size: 1.8rem;">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="font-size: 1.4rem;">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" style="font-size: 1.4rem;">Search</button>
+          </form>
+        </div>
+      </nav>
+      <div id="clockdate" align=right>
+        <div class="clockdate-wrapper" style="margin: 0;">
+          <div id="clock"></div>
+          <div id="date"></div>
+        </div>
+      </div>
     </header>
     <main>
+      <div>
+        <form class="form-inline my-2 my-lg-0">
+          <input type="number" id="fc" class="form-control mr-sm-2" placeholder="Tamaño de la matriz" style="font-size: 1.4rem;">
+          <button onclick="graficar()" type="button" class="btn btn-primary" style="font-size: 1.4rem;">Crear</button>
+          <button onclick="extraer()" type="button" class="btn btn-success" style="font-size: 1.4rem;">Ingresar</button>
+        </form>
+        <input type="text" class="form-control" aria-label="Text input with dropdown button">
+      </div>
       <ul id="stock" class="grafo">
       </ul>
-      <input type="number" id="fc">
-      <button onclick="graficar()">Graficar</button>
-      <button onclick="extraer()">Ingresar valores</button>
+      </div>
     </main>
     <footer>
     </footer>
