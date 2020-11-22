@@ -82,6 +82,7 @@ canvas {
 
 
 footer{
+  float: left;
   width: 100%;
   background: #202020;
   color: white;   
@@ -102,7 +103,8 @@ footer{
 }
 
 .colum1{
-  max-width: 400px;
+  max-width: 33%;
+
 }
 
 .colum1 h1{
@@ -116,8 +118,8 @@ footer{
 }
 
 .colum2{
-  max-width: 400px;
-  
+  max-width: 33%;
+
 }
 
 .colum2 h1{
@@ -141,7 +143,7 @@ footer{
 }
 
 .colum3{
-  max-width: 400px;
+  max-width: 33%;
 }
 
 .colum3 h1{
@@ -205,6 +207,6 @@ footer{
   
   .colum2,
   .colum3{
-      margin-top: 40px;
+      margin-top: 50px;
   }
 }
