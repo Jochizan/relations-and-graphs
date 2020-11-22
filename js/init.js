@@ -87,6 +87,33 @@ const init = () => {
   chooseTwoNodes();
 }
 
+
+const calcular = () => {
+  const matriz = [];
+  let fc = document.getElementById("fc").value;
+  let k = 0;
+  let l = 0;
+  for (let i = 0; i < fc; ++i) {
+    matriz.push([]);
+  }
+  for (let i = 0; i < fc * fc; ++i) {
+    let valor = parseInt(document.getElementById(`input${i+1}`).value);
+    matriz[l][k] = valor;
+    k++;
+    if (k == fc) {
+      k = 0;
+      l++;
+    }
+  }
+  setTimeout(() => {
+    for (let i = 0; i < fc; ++i) {
+      for (let j = 0; j < fc; ++j) {
+        console.log(matriz[i][j]);
+      }
+    }
+  }, 500)
+}
+
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraph = () => {
   let names = [
@@ -314,7 +341,6 @@ const leastNode = (coll, distances) => {
   return bestnode;
 }
 
-
 // Find a path that is shortest from the BEGIN node to the END node.
 // (There might be more than one, and there might be none.)
 const findShortestPath = (begin, end) => {
@@ -339,7 +365,6 @@ const findShortestPath = (begin, end) => {
   path.reverse();
   return path;
 }
-
 
 // Recursively walk the graph starting from the BEGIN node;
 // when reaching the END node remember the list of nodes along the current path.
