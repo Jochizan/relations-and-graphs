@@ -16,7 +16,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#" style="font-size: 1.8rem;">Navbar</a>
+        <a class="navbar-brand" href="#" style="font-size: 2.0rem;">Navbar</a>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item active">
@@ -30,34 +30,58 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="font-size: 1.4rem;">
-            <button class="btn btn-success my-2 my-sm-0" type="submit" style="font-size: 1.4rem;">Search</button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="font-size: 1.6rem;">
+            <button class="btn btn-success my-2 my-sm-0" type="submit" style="font-size: 1.6rem;">Search</button>
           </form>
         </div>
       </nav>
-      <div id="clockdate" align=right>
-        <div class="clockdate-wrapper" style="margin: 0;">
-          <div id="clock"></div>
-          <div id="date"></div>
-        </div>
-      </div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="font-size: 1.8rem;">
+          <li class="breadcrumb-item active" aria-current="page">Home</li>
+          <div id="clockdate" class="container" align=right>
+            <div class="clockdate-wrapper" style="margin: 0;">
+              <div id="clock"></div>
+              <div id="date"></div>
+            </div>
+          </div>
+        </ol>
+      </nav>
     </header>
     <main>
-      <div>
+      <div class="d-flex justify-content-center">
         <form class="form-inline my-2 my-lg-0">
           <input type="number" id="fc" class="form-control mr-sm-2" placeholder="Tamaño de la matriz" style="font-size: 1.4rem;">
-          <button onclick="graficar()" type="button" class="btn btn-primary" style="font-size: 1.4rem;">Crear</button>
-          <button onclick="extraer()" type="button" class="btn btn-success" style="font-size: 1.4rem;">Ingresar</button>
+          <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.4rem; margin: 0.5rem;">Crear</button>
+          <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.4rem; margin: 0.5rem;">Ingresar</button>
+          <button onclick="drawGraph()" type="button" class="btn btn-info" style="font-size: 1.4rem; margin: 0.5rem;">Dibujar</button>
         </form>
-        <input type="text" class="form-control" aria-label="Text input with dropdown button">
       </div>
-      <ul id="stock" class="grafo">
-      </ul>
+      <hr class="my-4">
+      <div class="d-flex justify-content-center">
+        <ul id="stock" class="grafo">
+        </ul>
+      </div>
+      <hr class="my-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <canvas id="canvas" width="40rem" height="40rem">
+              Sorry, your browser doesn't support the &lt;canvas&gt; element.
+            </canvas>
+          </div>
+          <div class="col-md-4">
+            <p>item 1: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          </div>
+          <div class="col-md-4">
+            <p>item 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          </div>
+        </div>
       </div>
     </main>
     <footer>
     </footer>
     <script src="js/index.js"></script>
     <script src="js/time.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
