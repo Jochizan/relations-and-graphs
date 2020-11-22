@@ -3,7 +3,9 @@
 const crearArray = () => {
   let fc = parseInt(document.getElementById("fc").value);
   let doc = document.getElementById("stock");
+  let paths = document.getElementById("myPaths");
   doc.innerHTML = "";
+  paths.innerHTML = "";
   let numInputs = 1;
   let val = 1;
   let range = 1;
@@ -15,15 +17,16 @@ const crearArray = () => {
         numInputs++;
       } else {
         if (i == 0 && j == 0) {
-          doc.innerHTML += `<p id="val${0}" class="fx-val">n</p>`;
+          doc.innerHTML += `<input tpye="text" id="val${0}" class="fx-val" placeholder="cls">`;
           continue;
         }
         if (i != 0) {
-          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
+          doc.innerHTML += `<input type="text" id="val${val}" class="fx-val">`;
+          paths.innerHTML += `<option>${2}: ${val} -- ${range}</option>`
           val++;
         }
         if (j != 0) {
-          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
+          doc.innerHTML += `<input type="text" id="val${val}" class="cx-val">`;
           val++;
         }
         range++;
