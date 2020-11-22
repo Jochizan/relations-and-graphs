@@ -1,7 +1,6 @@
 const init = () => {
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   let $ = go.GraphObject.make;  // for conciseness in defining templates
-
   myDiagram =
     $(go.Diagram, "myDiagramDiv", // must be the ID or a reference to a DIV
       {
@@ -132,6 +131,10 @@ const calcular = () => {
 
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraph = () => {
+  let fc = parseInt(document.getElementById("fc").value);
+  for (let i = 0; i < fc; ++i) {
+    names.push(i+1);
+  }
   let nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
     nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
@@ -148,10 +151,6 @@ const generateGraph = () => {
 
 // Select two nodes at random for which there is a path that connects from the first one to the second one.
 const chooseTwoNodes = () => {
-  let fc = parseInt(document.getElementById("fc").value);
-  for (let i = 0; i < fc; ++i) {
-    names.push(i+1);
-  }
   myDiagram.clearSelection();
   let num = myDiagram.model.nodeDataArray.length;
   let node1 = null;
