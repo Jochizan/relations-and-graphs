@@ -1,18 +1,42 @@
-const graficar = () => {
-  let fc = document.getElementById("fc").value;
+'use strict'
+
+const crearArray = () => {
+  let fc = parseInt(document.getElementById("fc").value);
   let doc = document.getElementById("stock");
-  let c = 1;
-  for (let i = 0; i < fc; ++i) {
+  doc.innerHTML = "";
+  let numInputs = 1;
+  let val = 1;
+  let range = 1;
+  for (let i = 0; i < fc + 1; ++i) {
     doc.innerHTML += `<div>`
-    for (let j = 0; j < fc; ++j) {
-      doc.innerHTML += `<input type="number" id="input${c}" style="height: 40px; width: 40px; font-size: 12px; ">`
-      c++;
+    for (let j = 0; j < fc + 1; ++j) {
+      if (i != 0 && j != 0) {
+        doc.innerHTML += `<input type="number" id="input${numInputs}" class="inputs-array">`
+        numInputs++;
+      } else {
+        if (i == 0 && j == 0) {
+          doc.innerHTML += `<p id="val${0}" class="fx-val">n</p>`;
+          continue;
+        }
+        if (i != 0) {
+          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
+          val++;
+        }
+        if (j != 0) {
+          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
+          val++;
+        }
+        range++;
+        if (range - 1 == fc) {
+          range = 1;
+        }
+      }
     }
     doc.innerHTML += `</div>`
   }
 }
 
-const extraer = () => {
+const calcular = () => {
   const matriz = [];
   let fc = document.getElementById("fc").value;
   let k = 0;
