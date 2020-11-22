@@ -56,7 +56,7 @@ const init = () => {
     );
   // Override the clickSelectingTool's standardMouseSelect
   // If less than 2 nodes are selected, always add to the selection
-  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = () => {
+  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = function() {
     let diagram = this.diagram;
     if (diagram === null || !diagram.allowSelect) return;
     let e = diagram.lastInput;
@@ -83,32 +83,25 @@ const init = () => {
   chooseTwoNodes();
 }
 
+//let names = [
+//"Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
+//"Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
+//"Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
+//];
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
-/*const generateGraph = () => {*/
-  //let names = [
-    //"Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
-    //"Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
-    //"Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
-  //];
-  //let nodeDataArray = [];
-  //for (let i = 0; i < names.length; i++) {
-    //nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
-  //}
-  //let linkDataArray = [];
-  //let num = nodeDataArray.length;
-  //for (let i = 0; i < num * 2; i++) {
-    //let a = Math.floor(i/2);
-    //let b = Math.floor(Math.random() * num / 4) + 1;
-    //linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
-  //}
-  //myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-/*}*/
 const generateGraph = () => {
   let fc = parseInt(document.getElementById("fc").value);
+  let paths = document.getElementById("myPaths");
+  paths.innerHTML = "";
   const names = [];
   const matriz = [];
+  const texts = [];
   let k = 0;
   let l = 0;
+  for (let i = 1; i < fc + 1; ++i) {
+    texts.push(document.getElementById(`val${i}`).value);
+    console.log(texts[i-1]);
+  }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
@@ -123,11 +116,11 @@ const generateGraph = () => {
   for (let i = 0; i < fc; ++i) {
     names.push("" + (i + 1));
   }
-  let nodeDataArray = [];
+  const nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
     nodeDataArray.push({ key: names[i], text: names[i], color: go.Brush.randomColor(128, 240) });
   }
-  let linkDataArray = [];
+  const linkDataArray = [];
   let num = nodeDataArray.length;
   for (let i = 0; i < num; i++) {
     for (let j = 0; j < num; j++) {
@@ -309,7 +302,6 @@ const findDistances = (source) => {
       }
     }
   }
-
   return distances;
 }
 
@@ -334,7 +326,6 @@ const leastNode = (coll, distances) => {
 const findShortestPath = (begin, end) => {
   // compute and remember the distance of each node from the BEGIN node
   distances = findDistances(begin);
-
   // now find a path from END to BEGIN, always choosing the adjacent Node with the lowest distance
   let path = new go.List();
   path.add(end);
