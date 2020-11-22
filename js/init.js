@@ -1,4 +1,49 @@
-const init = () => {
+const calcular = () => {
+  const matriz = [];
+  let fc = document.getElementById("fc").value;
+  let k = 0;
+  let l = 0;
+  for (let i = 0; i < fc; ++i) {
+    matriz.push([]);
+  }
+  for (let i = 0; i < fc * fc; ++i) {
+    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    k++;
+    if (k == fc) {
+      k = 0;
+      l++;
+    }
+  }
+  setTimeout(() => {
+    for (let i = 0; i < fc; ++i) {
+      for (let j = 0; j < fc; ++j) {
+        console.log(matriz[i][j]);
+      }
+    }
+    (reflexivo(matriz))
+      ? console.log("La matriz SI es reflexiva")
+      : console.log("La matriz NO es reflexiva");
+    (irreflexivo(matriz))
+      ? console.log("La matriz SI es irreflexiva")
+      : console.log("La matriz NO es irreflexiva");
+    (transitiva(matriz))
+      ? console.log("La matriz SI es transitiva")
+      : console.log("La matriz NO es transitiva");
+    (simetrica(matriz))
+      ? console.log("La matriz SI es simetrica")
+      : console.log("La matriz NO es simetrica");
+    (asimetrica(matriz))
+      ? console.log("La matriz SI es asimetrica")
+      : console.log("La matriz NO es asimetrica");
+    (antisimetrica(matriz))
+      ? console.log("La matriz SI es antisimetrica")
+      : console.log("LA matriz NO es antisimetrica");
+    console.log(matriz);
+  }, 500)
+}
+
+// Create an assign a model that has a bunch of nodes with a bunch of random links between them.
+const generateGraph = () => {
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   let $ = go.GraphObject.make;  // for conciseness in defining templates
   myDiagram =
@@ -79,15 +124,9 @@ const init = () => {
       diagram.clearSelection();
     }
   }
-  generateGraph();
-  chooseTwoNodes();
-}
-
-const names = [];
-const matriz = [];
-
-const calcular = () => {
-  let fc = document.getElementById("fc").value;
+  let fc = parseInt(document.getElementById("fc").value);
+  const names = [];
+  const matriz = [];
   let k = 0;
   let l = 0;
   for (let i = 0; i < fc; ++i) {
@@ -101,50 +140,22 @@ const calcular = () => {
       l++;
     }
   }
-  setTimeout(() => {
-    for (let i = 0; i < fc; ++i) {
-      for (let j = 0; j < fc; ++j) {
-        console.log(matriz[i][j]);
-      }
-    }
-    (reflexivo(matriz))
-      ? console.log("La matriz SI es reflexiva")
-      : console.log("La matriz NO es reflexiva");
-    (irreflexivo(matriz))
-      ? console.log("La matriz SI es irreflexiva")
-      : console.log("La matriz NO es irreflexiva");
-    (transitiva(matriz))
-      ? console.log("La matriz SI es transitiva")
-      : console.log("La matriz NO es transitiva");
-    (simetrica(matriz))
-      ? console.log("La matriz SI es simetrica")
-      : console.log("La matriz NO es simetrica");
-    (asimetrica(matriz))
-      ? console.log("La matriz SI es asimetrica")
-      : console.log("La matriz NO es asimetrica");
-    (antisimetrica(matriz))
-      ? console.log("La matriz SI es antisimetrica")
-      : console.log("LA matriz NO es antisimetrica");
-    console.log(matriz);
-  }, 500)
-}
-
-// Create an assign a model that has a bunch of nodes with a bunch of random links between them.
-const generateGraph = () => {
-  let fc = parseInt(document.getElementById("fc").value);
   for (let i = 0; i < fc; ++i) {
-    names.push(i+1);
+    names.push("" + (i + 1));
   }
   let nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
+    nodeDataArray.push({ key: names[i], text: names[i], color: go.Brush.randomColor(128, 240) });
   }
   let linkDataArray = [];
   let num = nodeDataArray.length;
-  for (let i = 0; i < num * 2; i++) {
-    let a = Math.floor(i/2);
-    let b = Math.floor(Math.random() * num / 4) + 1;
-    linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
+  for (let i = 0; i < num; i++) {
+    for (let j = 0; j < num; j++) {
+      let a = names[i], b = names[j];
+      if (matriz[i][j] === 1) {
+        linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+      }
+    }
   }
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
@@ -318,7 +329,6 @@ const findDistances = (source) => {
       }
     }
   }
-
   return distances;
 }
 
