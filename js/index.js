@@ -36,51 +36,6 @@ const crearArray = () => {
   }
 }
 
-const calcular = () => {
-  const matriz = [];
-  let fc = document.getElementById("fc").value;
-  let k = 0;
-  let l = 0;
-  for (let i = 0; i < fc; ++i) {
-    matriz.push([]);
-  }
-  for (let i = 0; i < fc * fc; ++i) {
-    let valor = parseInt(document.getElementById(`input${i+1}`).value);
-    matriz[l][k] = valor;
-    k++;
-    if (k == fc) {
-      k = 0;
-      l++;
-    }
-  }
-  setTimeout(() => {
-    for (let i = 0; i < fc; ++i) {
-      for (let j = 0; j < fc; ++j) {
-        console.log(matriz[i][j]);
-      }
-    }
-    (reflexivo(matriz))
-      ? console.log("La matriz SI es reflexiva")
-      : console.log("La matriz NO es reflexiva");
-    (irreflexivo(matriz))
-      ? console.log("La matriz SI es irreflexiva")
-      : console.log("La matriz NO es irreflexiva");
-    (transitiva(matriz))
-      ? console.log("La matriz SI es transitiva")
-      : console.log("La matriz NO es transitiva");
-    (simetrica(matriz))
-      ? console.log("La matriz SI es simetrica")
-      : console.log("La matriz NO es simetrica");
-    (asimetrica(matriz))
-      ? console.log("La matriz SI es asimetrica")
-      : console.log("La matriz NO es asimetrica");
-    (antisimetrica(matriz))
-      ? console.log("La matriz SI es antisimetrica")
-      : console.log("LA matriz NO es antisimetrica");
-    console.log(matriz);
-  }, 500)
-}
-
 const reflexivo = (matriz=[]) => {
   let fc = matriz.length;
   let count = 0;
