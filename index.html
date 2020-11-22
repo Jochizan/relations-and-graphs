@@ -59,7 +59,7 @@
           <input type="number" id="fc" class="form-control mr-sm-2" placeholder="Tamaño de la matriz" style="font-size: 1.4rem;">
           <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.4rem; margin: 0.5rem;">Crear</button>
           <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.4rem; margin: 0.5rem;">Ingresar</button>
-          <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.4rem; margin: 0.5rem;">Dibujar</button>
+          <button onclick="chooseTwoNodes()" type="button" class="btn btn-info" style="font-size: 1.4rem; margin: 0.5rem;">Dibujar</button>
         </form>
       </div>
       <hr class="my-4">
@@ -71,7 +71,7 @@
       <div id="sample" class="col">
         <div class="">
           <div id="myDiagramDiv" style="border: 1px solid black; background: white; width: 100%; height: 700px; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <canvas tabindex="0" width="600" height="680" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 591px; height: 681px;">This text is displayed if your browser does not support the Canvas HTML element.
+            <canvas id="canvas" tabindex="0" width="600" height="680" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 591px; height: 681px;">This text is displayed if your browser does not support the Canvas HTML element.
             </canvas>
             <div style="position: absolute; overflow: auto; width: 591px; height: 698px; z-index: 1;">
               <div style="position: absolute; width: 609.988px; height: 1px;">
@@ -91,16 +91,6 @@
         Select a path to highlight it in the diagram.
         </p>
         <select id="myPaths" style="min-width:100px" size="10">
-          <option>11: Michael -- Dylan -- Betsy -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>13: Michael -- Dylan -- Betsy -- Walter -- Gabriel -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>12: Michael -- Dylan -- Betsy -- Walter -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>4: Michael -- Dylan -- Robert -- Scott</option>
-          <option>13: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>15: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Walter -- Gabriel -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>14: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Walter -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
-          <option>6: Michael -- Natalie -- Grace -- Dylan -- Robert -- Scott</option>
-          <option>4: Michael -- Natalie -- Joshua -- Scott</option>
-          <option>5: Michael -- Natalie -- Joshua -- Robert -- Scott</option>
         </select>
     </main>
     <footer>

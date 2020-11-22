@@ -10,7 +10,6 @@ const init = () => {
         layout: $(go.ForceDirectedLayout, { defaultSpringLength: 10, maxIterations: 300 }),
         maxSelectionCount: 2
       });
-
   // define the Node template
   myDiagram.nodeTemplate =
     $(go.Node, "Horizontal",
@@ -29,17 +28,16 @@ const init = () => {
             desiredSize: new go.Size(30, 30),
             portId: ""  // so links will go to the shape, not the whole node
           },
-          new go.Binding("fill", "isSelected", function(s, obj) {
+          new go.Binding("fill", "isSelected", (s, obj) => {
             return s ? "red" : obj.part.data.color;
           }).ofObject()),
         $(go.TextBlock,
-          new go.Binding("text", "distance", function(d) {
+          new go.Binding("text", "distance", (d) => {
             return (d === Infinity) ? "INF" : d | 0;
           }))),
       $(go.TextBlock,
         new go.Binding("text"))
     );
-
   // define the Link template
   myDiagram.linkTemplate =
     $(go.Link,
@@ -50,17 +48,16 @@ const init = () => {
       },
       $(go.Shape,  // this shape only shows when it isHighlighted
         { isPanelMain: true, stroke: null, strokeWidth: 5 },
-        new go.Binding("stroke", "isHighlighted", function(h) { return h ? "red" : null; }).ofObject()),
+        new go.Binding("stroke", "isHighlighted", (h) => { return h ? "red" : null; }).ofObject()),
       $(go.Shape,
         // mark each Shape to get the link geometry with isPanelMain: true
         { isPanelMain: true, stroke: "black", strokeWidth: 1 },
         new go.Binding("stroke", "color")),
       $(go.Shape, { toArrow: "Standard" })
     );
-
   // Override the clickSelectingTool's standardMouseSelect
   // If less than 2 nodes are selected, always add to the selection
-  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = function() {
+  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = () => {
     let diagram = this.diagram;
     if (diagram === null || !diagram.allowSelect) return;
     let e = diagram.lastInput;
@@ -88,18 +85,17 @@ const init = () => {
 }
 
 const names = [];
+const matriz = [];
 
 const calcular = () => {
   let fc = document.getElementById("fc").value;
   let k = 0;
   let l = 0;
-  const matriz = [];
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
   for (let i = 0; i < fc * fc; ++i) {
-    let valor = parseInt(document.getElementById(`input${i+1}`).value);
-    matriz[l][k] = valor;
+    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
     k++;
     if (k == fc) {
       k = 0;
@@ -112,20 +108,34 @@ const calcular = () => {
         console.log(matriz[i][j]);
       }
     }
+    (reflexivo(matriz))
+      ? console.log("La matriz SI es reflexiva")
+      : console.log("La matriz NO es reflexiva");
+    (irreflexivo(matriz))
+      ? console.log("La matriz SI es irreflexiva")
+      : console.log("La matriz NO es irreflexiva");
+    (transitiva(matriz))
+      ? console.log("La matriz SI es transitiva")
+      : console.log("La matriz NO es transitiva");
+    (simetrica(matriz))
+      ? console.log("La matriz SI es simetrica")
+      : console.log("La matriz NO es simetrica");
+    (asimetrica(matriz))
+      ? console.log("La matriz SI es asimetrica")
+      : console.log("La matriz NO es asimetrica");
+    (antisimetrica(matriz))
+      ? console.log("La matriz SI es antisimetrica")
+      : console.log("LA matriz NO es antisimetrica");
+    console.log(matriz);
   }, 500)
 }
 
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraph = () => {
-  let fc = document.getElementById("fc").value;
-  for (let i = 0; i < n; ++i) {
-    names.push
-  }
   let nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
     nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
   }
-
   let linkDataArray = [];
   let num = nodeDataArray.length;
   for (let i = 0; i < num * 2; i++) {
@@ -133,12 +143,15 @@ const generateGraph = () => {
     let b = Math.floor(Math.random() * num / 4) + 1;
     linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
   }
-
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
 
 // Select two nodes at random for which there is a path that connects from the first one to the second one.
 const chooseTwoNodes = () => {
+  let fc = parseInt(document.getElementById("fc").value);
+  for (let i = 0; i < fc; ++i) {
+    names.push(i+1);
+  }
   myDiagram.clearSelection();
   let num = myDiagram.model.nodeDataArray.length;
   let node1 = null;
@@ -172,17 +185,13 @@ const nodeSelectionChanged = (node) => {
     // when there is a selection made, always clear out the list of all paths
     let sel = document.getElementById("myPaths");
     sel.innerHTML = "";
-
     // show the distance for each node from the selected node
     let begin = diagram.selection.first();
     showDistances(begin);
-
     if (diagram.selection.count === 2) {
       let end = node;  // just became selected
-
       // highlight the shortest path
       highlightShortestPath(begin, end);
-
       // list all paths
       listAllPaths(begin, end);
     }
@@ -215,7 +224,6 @@ let paths = null;
 const listAllPaths = (begin, end) => {
   // compute and remember all paths from BEGIN to END: Lists of Nodes
   paths = collectAllPaths(begin, end);
-
   // update the Selection element with a bunch of Option elements, one per path
   let sel = document.getElementById("myPaths");
   sel.innerHTML = "";  // clear out any old Option elements
@@ -251,7 +259,7 @@ const highlightPath = (path) => {
   for (let i = 0; i < path.count - 1; i++) {
     let f = path.get(i);
     let t = path.get(i + 1);
-    f.findLinksTo(t).each(function(l) { l.isHighlighted = true; });
+    f.findLinksTo(t).each((l) => { l.isHighlighted = true; });
   }
 }
 
