@@ -3,14 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--<link rel="stylesheet" href="css/style.css">-->
-    <link rel="stylesheet" href="css/main.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/highlight.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/main.css">
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="release/go.js"></script>
+    <script src="assets/js/highlight.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <title>Grafos</title>
   </head>
-  <body onload="timeStatus()">
+  <body onload="init()">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,26 +68,52 @@
         </ul>
       </div>
       <hr class="my-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <canvas id="canvas" width="40rem" height="40rem">
-              Sorry, your browser doesn't support the &lt;canvas&gt; element.
-            </canvas>
-          </div>
-          <div class="col-md-4">
-            <p>item 1: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-          <div class="col-md-4">
-            <p>item 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-          </div>
-        </div>
-      </div>
+<!--      <div class="container">-->
+        <!--<div class="row">-->
+          <!--<div class="col-md-4">-->
+            <!--<canvas id="canvas" width="40rem" height="40rem">-->
+              <!--Sorry, your browser doesn't support the &lt;canvas&gt; element.-->
+            <!--</canvas>-->
+          <!--</div>-->
+          <!--<div class="col-md-4">-->
+            <!--<p>item 1: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+          <!--</div>-->
+          <!--<div class="col-md-4">-->
+            <!--<p>item 2: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div id="sample" class="col-md-10">
+        <div id="myDiagramDiv" style="border: 1px solid black; background: white; width: 100%; height: 700px; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);"><canvas tabindex="0" width="591" height="681" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 591px; height: 681px;">This text is displayed if your browser does not support the Canvas HTML element.</canvas><div style="position: absolute; overflow: auto; width: 591px; height: 698px; z-index: 1;"><div style="position: absolute; width: 609.988px; height: 1px;"></div></div></div>
+        Click on a node to show distances from that node to each other node.
+        Click on a second node to show a shortest path from the first node to the second node.
+        (Note that there might not be any path between the nodes.)
+        Clicking on a third node will de-select the first two.
+        <p>
+        <button onclick="chooseTwoNodes()">Choose another two nodes at random</button>
+        </p>
+        <p>
+        Here is a list of all paths between the first and second selected nodes.
+        Select a path to highlight it in the diagram.
+        </p>
+        <select id="myPaths" style="min-width:100px" size="10">
+          <option>11: Michael -- Dylan -- Betsy -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>13: Michael -- Dylan -- Betsy -- Walter -- Gabriel -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>12: Michael -- Dylan -- Betsy -- Walter -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>4: Michael -- Dylan -- Robert -- Scott</option>
+          <option>13: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>15: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Walter -- Gabriel -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>14: Michael -- Natalie -- Grace -- Dylan -- Betsy -- Walter -- Emily -- Tina -- Elena -- Juliana -- Ashley -- Kathryn -- Robert -- Scott</option>
+          <option>6: Michael -- Natalie -- Grace -- Dylan -- Robert -- Scott</option>
+          <option>4: Michael -- Natalie -- Joshua -- Scott</option>
+          <option>5: Michael -- Natalie -- Joshua -- Robert -- Scott</option>
+        </select>
     </main>
     <footer>
     </footer>
     <script src="js/index.js"></script>
     <script src="js/time.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/init.js" id="code"></script>
   </body>
 </html>
