@@ -38,22 +38,25 @@ canvas {
 
 .fx-val {
   display: inline;
-  margin: 1.4rem;
   padding: auto;
+  height: 4.0rem;
+  width: 4.0rem;
+  font-size: 1.4rem;
 }
 
 .cx-val {
   display: inline;
-  margin: 1.55rem;
   padding: auto;
+  height: 4.0rem;
+  width: 4.0rem;
+  font-size: 1.4rem;
 }
 
 .inputs-array {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   height: 4.0rem;
   width: 4.0rem;
 }
-
 
 #clock{
   background-color: #333;

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
+    <title>Graph Distances and Paths</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -17,8 +18,8 @@
     <title>Grafos</title>
     <link rel="shortcut icon" type="imagen/x-icon" href="img/Logo.ico">
   </head>
-  <body>
-     <header>
+  <body onload="init()">
+    <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -58,7 +59,7 @@
       <div id="sample" class="col">
         <div class="">
           <div id="myDiagramDiv" style="border: 0.1rem solid black; background: white; width: 100%; height: 70.0rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <canvas id="canvas" tabindex="0" width="600" height="680" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 60.0rem; height: 70.0rem;">This text is displayed if your browser does not support the Canvas HTML element.
+            <canvas id="canvas" tabindex="0" width="600" height="680" style="position: relative; top: 0px; left: 0px; z-index: 2; user-select: none; width: 60.0rem; height: 70.0rem;">This text is displayed if your browser does not support the Canvas HTML element.
             </canvas>
             <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
               <div style="position: absolute; width: 60.0rem; height: 0.1rem;">
@@ -77,8 +78,10 @@
         Here is a list of all paths between the first and second selected nodes.
         Select a path to highlight it in the diagram.
         </p>
-        <select id="myPaths" style="min-width:100px" size="10">
-        </select>
+        <div class="d-flex justify-content-center">
+          <select id="myPaths" style="min-width: 30.0rem; height: auto;" size="10">
+          </select>
+        </div>
     </main>
     <footer>
       <div class="container-footer-all">
@@ -141,7 +144,7 @@
         </div>
       </div>
     </footer>
-    <script src="js/init.js"></script>
+    <!--<script src="js/init.js"></script>-->
     <script src="js/index.js"></script>
     <script src="js/time.js"></script>
     <script src="js/app.js"></script>
