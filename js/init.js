@@ -87,12 +87,13 @@ const init = () => {
   chooseTwoNodes();
 }
 
+const names = [];
 
 const calcular = () => {
-  const matriz = [];
   let fc = document.getElementById("fc").value;
   let k = 0;
   let l = 0;
+  const matriz = [];
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
@@ -116,12 +117,10 @@ const calcular = () => {
 
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraph = () => {
-  let names = [
-    "Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
-    "Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
-    "Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
-  ];
-
+  let fc = document.getElementById("fc").value;
+  for (let i = 0; i < n; ++i) {
+    names.push
+  }
   let nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
     nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
@@ -160,9 +159,8 @@ const chooseTwoNodes = () => {
   }
 }
 
-
 // This event handler is declared in the node template and is called when a node's
-//   Node.isSelected property changes value.
+// Node.isSelected property changes value.
 // When a node is selected show distances from the first selected node.
 // When a second node is selected, highlight the shortest path between two selected nodes.
 // If a node is deselected, clear all highlights.
@@ -191,7 +189,6 @@ const nodeSelectionChanged = (node) => {
   }
 }
 
-
 // Have each node show how far it is from the BEGIN node.
 // This sets the "distance" property on each node.data.
 const showDistances = (begin) => {
@@ -206,17 +203,14 @@ const showDistances = (begin) => {
   }
 }
 
-
 // Highlight links along one of the shortest paths between the BEGIN and the END nodes.
 // Assume links are directional.
 const highlightShortestPath = (begin, end) => {
   highlightPath(findShortestPath(begin, end));
 }
 
-
 // A collection of all of the paths between a pair of nodes, a List of Lists of Nodes
 let paths = null;
-
 // List all paths from BEGIN to END
 const listAllPaths = (begin, end) => {
   // compute and remember all paths from BEGIN to END: Lists of Nodes
@@ -244,7 +238,6 @@ const pathToString = (path) => {
 }
 
 // This is only used for listing all paths for the selection onchange event.
-
 // When the selected item changes in the Selection element,
 // highlight the corresponding path of nodes.
 const highlightSelectedPath = () => {
@@ -262,7 +255,6 @@ const highlightPath = (path) => {
   }
 }
 
-
 // There are three bits of functionality here:
 // 1: findDistances(Node) computes the distance of each Node from the given Node.
 //    This function is used by showDistances to update the model data.
@@ -271,7 +263,6 @@ const highlightPath = (path) => {
 // 3: collectAllPaths(Node, Node) produces a collection of all paths from one Node to another.
 //    This is used by listAllPaths.  The result is remembered in a global letiable
 //    which is used by highlightSelectedPath.  This does not depend on findDistances.
-
 // Returns a Map of Nodes with distance values from the given source Node.
 // Assumes all links are directional.
 const findDistances = (source) => {
@@ -290,7 +281,6 @@ const findDistances = (source) => {
   // but which we have not yet finished examining
   let seen = new go.Set(/*go.Node*/);
   seen.add(source);
-
   // keep track of nodes we have finished examining;
   // this avoids unnecessary traversals and helps keep the SEEN collection small
   let finished = new go.Set(/*go.Node*/);
