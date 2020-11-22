@@ -1,5 +1,3 @@
-'use strict'
-
 const calcular = () => {
   const matriz = [];
   let fc = document.getElementById("fc").value;
@@ -44,62 +42,120 @@ const calcular = () => {
   }, 500)
 }
 
-const init = () => {
-  if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
-  var $ = go.GraphObject.make;  // for conciseness in defining templates
-
-  myDiagram = $(go.Diagram, "myDiagramDiv",  // create a Diagram for the DIV HTML element
-    {
-      initialContentAlignment: go.Spot.Center,  // center the content
-      "undoManager.isEnabled": true  // enable undo & redo
-    });
-
-  // define a simple Node template
-  myDiagram.nodeTemplate =
-    $(go.Node, "Auto",  // the Shape will go around the TextBlock
-      $(go.Shape, "RoundedRectangle",
-        // Shape.fill is bound to Node.data.color
-        new go.Binding("fill", "color")),
-      $(go.TextBlock,
-        { margin: 3 },  // some room around the text
-        // TextBlock.text is bound to Node.data.key
-        new go.Binding("text", "key"))
-    );
-  // but use the default Link template, by not setting Diagram.linkTemplate
-  // create the model data that will be represented by Nodes and Links
-  myDiagram.model = new go.GraphLinksModel(
-    [
-      { key: "Alpha", color: "lightblue" },
-      { key: "Beta", color: "orange" },
-      { key: "Gamma", color: "lightgreen" },
-      { key: "Delta", color: "pink" }
-    ],
-    [
-      { from: "Alpha", to: "Alpha" },
-      { from: "Alpha", to: "Gamma" },
-      { from: "Beta", to: "Beta" },
-      { from: "Gamma", to: "Delta" },
-      { from: "Delta", to: "Alpha" }
-    ]);
-}
-
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraph = () => {
-  const names = [];
+  if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
+  let $ = go.GraphObject.make;  // for conciseness in defining templates
+  myDiagram =
+    $(go.Diagram, "myDiagramDiv", // must be the ID or a reference to a DIV
+      {
+        initialAutoScale: go.Diagram.Uniform,
+        contentAlignment: go.Spot.Center,
+        layout: $(go.ForceDirectedLayout, { defaultSpringLength: 10, maxIterations: 300 }),
+        maxSelectionCount: 2
+      });
+  // define the Node template
+  myDiagram.nodeTemplate =
+    $(go.Node, "Horizontal",
+      {
+        locationSpot: go.Spot.Center,  // Node.location is the center of the Shape
+        locationObjectName: "SHAPE",
+        selectionAdorned: false,
+        selectionChanged: nodeSelectionChanged  // defined below
+      },
+      $(go.Panel, "Spot",
+        $(go.Shape, "Circle",
+          {
+            name: "SHAPE",
+            fill: "lightgray",  // default value, but also data-bound
+            strokeWidth: 0,
+            desiredSize: new go.Size(30, 30),
+            portId: ""  // so links will go to the shape, not the whole node
+          },
+          new go.Binding("fill", "isSelected", (s, obj) => {
+            return s ? "red" : obj.part.data.color;
+          }).ofObject()),
+        $(go.TextBlock,
+          new go.Binding("text", "distance", (d) => {
+            return (d === Infinity) ? "INF" : d | 0;
+          }))),
+      $(go.TextBlock,
+        new go.Binding("text"))
+    );
+  // define the Link template
+  myDiagram.linkTemplate =
+    $(go.Link,
+      {
+        selectable: false,      // links cannot be selected by the user
+        curve: go.Link.Bezier,
+        layerName: "Background"  // don't cross in front of any nodes
+      },
+      $(go.Shape,  // this shape only shows when it isHighlighted
+        { isPanelMain: true, stroke: null, strokeWidth: 5 },
+        new go.Binding("stroke", "isHighlighted", (h) => { return h ? "red" : null; }).ofObject()),
+      $(go.Shape,
+        // mark each Shape to get the link geometry with isPanelMain: true
+        { isPanelMain: true, stroke: "black", strokeWidth: 1 },
+        new go.Binding("stroke", "color")),
+      $(go.Shape, { toArrow: "Standard" })
+    );
+  // Override the clickSelectingTool's standardMouseSelect
+  // If less than 2 nodes are selected, always add to the selection
+  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = () => {
+    let diagram = this.diagram;
+    if (diagram === null || !diagram.allowSelect) return;
+    let e = diagram.lastInput;
+    let count = diagram.selection.count;
+    let curobj = diagram.findPartAt(e.documentPoint, false);
+    if (curobj !== null) {
+      if (count < 2) {  // add the part to the selection
+        if (!curobj.isSelected) {
+          let part = curobj;
+          if (part !== null) part.isSelected = true;
+        }
+      } else {
+        if (!curobj.isSelected) {
+          let part = curobj;
+          if (part !== null) diagram.select(part);
+        }
+      }
+    } else if (e.left && !(e.control || e.meta) && !e.shift) {
+      // left click on background with no modifier: clear selection
+      diagram.clearSelection();
+    }
+  }
   let fc = parseInt(document.getElementById("fc").value);
+  const names = [];
+  const matriz = [];
+  let k = 0;
+  let l = 0;
   for (let i = 0; i < fc; ++i) {
-    names.push(i+1);
+    matriz.push([]);
+  }
+  for (let i = 0; i < fc * fc; ++i) {
+    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    k++;
+    if (k == fc) {
+      k = 0;
+      l++;
+    }
+  }
+  for (let i = 0; i < fc; ++i) {
+    names.push("" + (i + 1));
   }
   let nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
+    nodeDataArray.push({ key: names[i], text: names[i], color: go.Brush.randomColor(128, 240) });
   }
   let linkDataArray = [];
   let num = nodeDataArray.length;
-  for (let i = 0; i < num * 2; i++) {
-    let a = Math.floor(i/2);
-    let b = Math.floor(Math.random() * num / 4) + 1;
-    linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
+  for (let i = 0; i < num; i++) {
+    for (let j = 0; j < num; j++) {
+      let a = names[i], b = names[j];
+      if (matriz[i][j] === 1) {
+        linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+      }
+    }
   }
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
@@ -273,7 +329,6 @@ const findDistances = (source) => {
       }
     }
   }
-
   return distances;
 }
 
