@@ -63,9 +63,6 @@ const calcular = () => {
     (irreflexivo(matriz))
       ? console.log("La matriz SI es irreflexiva")
       : console.log("La matriz NO es irreflexiva");
-    (transitiva(matriz))
-      ? console.log("La matriz SI es transitiva")
-      : console.log("La matriz NO es transitiva");
     (simetrica(matriz))
       ? console.log("La matriz SI es simetrica")
       : console.log("La matriz NO es simetrica");
@@ -75,6 +72,9 @@ const calcular = () => {
     (antisimetrica(matriz))
       ? console.log("La matriz SI es antisimetrica")
       : console.log("LA matriz NO es antisimetrica");
+    (transitiva(matriz))
+      ? console.log("La matriz SI es transitiva")
+      : console.log("La matriz NO es transitiva");
     console.log(matriz);
   }, 500)
 }
@@ -83,12 +83,8 @@ const reflexivo = (matriz=[]) => {
   let fc = matriz.length;
   let count = 0;
   for (let i = 0; i < fc; ++i) {
-    for (let j = 0; j < fc; ++j) {
-      if (i === j) {
-        if (matriz[i][j] === 1) {
-          count++;
-        }
-      }
+    if (matriz[i][i] === 1) {
+      count++;
     }
   }
   return (count === fc)
@@ -100,12 +96,8 @@ const irreflexivo = (matriz=[]) => {
   let fc = matriz.length;
   let count = 0;
   for (let i = 0; i < fc; ++i) {
-    for (let j = 0; j < fc; ++j) {
-      if (i === j) {
-        if (matriz[i][j] === 0) {
-          count++;
-        }
-      }
+    if (matriz[i][i] === 0) {
+      count++;
     }
   }
   return (count === fc)
