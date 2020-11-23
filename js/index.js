@@ -39,6 +39,7 @@ const calcular = () => {
   let fc = document.getElementById("fc").value;
   let k = 0;
   let l = 0;
+  const matriz = [];
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }

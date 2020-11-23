@@ -24,7 +24,7 @@ const init = () => {
             name: "SHAPE",
             fill: "lightgray",  // default value, but also data-bound
             strokeWidth: 0,
-            desiredSize: new go.Size(30, 30),
+            desiredSize: new go.Size(45, 45),
             portId: ""  // so links will go to the shape, not the whole node
           },
           new go.Binding("fill", "isSelected", (s, obj) => {
@@ -50,7 +50,7 @@ const init = () => {
         new go.Binding("stroke", "isHighlighted", (h) => { return h ? "red" : null; }).ofObject()),
       $(go.Shape,
         // mark each Shape to get the link geometry with isPanelMain: true
-        { isPanelMain: true, stroke: "black", strokeWidth: 1 },
+        { isPanelMain: true, stroke: "black", strokeWidth: 3 },
         new go.Binding("stroke", "color")),
       $(go.Shape, { toArrow: "Standard" })
     );

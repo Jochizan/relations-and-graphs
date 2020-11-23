@@ -70,10 +70,10 @@
       </div>
       <div class="d-flex justify-content-center">
         <form class="form-inline my-2 my-lg-0">
-          <input type="number" id="fc" class="form-control mr-sm-2" placeholder="Tamaño de la matriz" style="font-size: 1.4rem;">
-          <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.4rem; margin: 0.5rem;">Crear</button>
-          <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.4rem; margin: 0.5rem;">Ingresar</button>
-          <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.4rem; margin: 0.5rem;">Dibujar</button>
+          <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="Tamaño de la matriz" style="font-size: 1.8rem;">
+          <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
+          <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Ingresar</button>
+          <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
         </form>
       </div>
       <div class="d-flex justify-content-center">
@@ -81,23 +81,24 @@
         </ul>
       </div>
       <hr class="my-4">
-      <div id="sample" class="col">
-        <div class="">
+      <div class="container">
+        <div id="sample" class="col">
           <div id="myDiagramDiv" style="border: 0.1rem solid black; background: white; width: 100%; height: 70.0rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <canvas id="canvas" tabindex="0" width="600" height="680" style="position: relative; top: 0px; left: 0px; z-index: 2; user-select: none; width: 60.0rem; height: 70.0rem;">This text is displayed if your browser does not support the Canvas HTML element.
+            <canvas id="canvas" tabindex="0" width="auto" height="100%" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 100%; height: 100%;">This text is displayed if your browser does not support the Canvas HTML element.
             </canvas>
             <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
               <div style="position: absolute; width: 60.0rem; height: 0.1rem;">
               </div>
             </div>
           </div>
+          <hr class="my-4">
           Click on a node to show distances from that node to each other node.
           Click on a second node to show a shortest path from the first node to the second node.
           (Note that there might not be any path between the nodes.)
           Clicking on a third node will de-select the first two.
         </div>
         <p>
-        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.4rem;">Choose another two nodes at random</button>
+        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.6rem;">Choose another two nodes at random</button>
         </p>
         <p>
         Here is a list of all paths between the first and second selected nodes.
@@ -106,6 +107,7 @@
         <div class="d-flex justify-content-center">
           <select id="myPaths" style="min-width: 30.0rem; height: auto;" size="10">
           </select>
+          <img src="img/bestNodding.gif" alt="best Gif">
         </div>
     </main>
     <footer>
