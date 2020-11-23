@@ -3,6 +3,8 @@
 
 ## 😎😎😎😎😎😎😎😎😎😎😎
 
+![fotoCodigo](./img/carbon.png)
+
 ### Autores:
 - Fabian Sinti Estefany💙
 - Medrano Quispe Samuel💚
