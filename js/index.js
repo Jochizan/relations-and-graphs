@@ -3,7 +3,7 @@
 const crearArray = () => {
   let fc = parseInt(document.getElementById("fc").value);
   let doc = document.getElementById("stock");
-  doc.innerHTML = "";
+  doc.innerHTML = ``;
   let numInputs = 1;
   let val = 1;
   let range = 1;
@@ -11,7 +11,7 @@ const crearArray = () => {
     doc.innerHTML += `<div>`
     for (let j = 0; j < fc + 1; ++j) {
       if (i !== 0 && j !== 0) {
-        doc.innerHTML += `<input type="number" id="input${numInputs}" class="inputs-array">`
+        doc.innerHTML += `<input type="number" id="input${numInputs}" min="0" max="1" class="inputs-array">`
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
@@ -33,6 +33,49 @@ const crearArray = () => {
     }
     doc.innerHTML += `</div>`
   }
+}
+
+const calcular = () => {
+  let fc = document.getElementById("fc").value;
+  let k = 0;
+  let l = 0;
+  for (let i = 0; i < fc; ++i) {
+    matriz.push([]);
+  }
+  for (let i = 0; i < fc * fc; ++i) {
+    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    k++;
+    if (k == fc) {
+      k = 0;
+      l++;
+    }
+  }
+  setTimeout(() => {
+    for (let i = 0; i < fc; ++i) {
+      for (let j = 0; j < fc; ++j) {
+        console.log(matriz[i][j]);
+      }
+    }
+    (reflexivo(matriz))
+      ? console.log("La matriz SI es reflexiva")
+      : console.log("La matriz NO es reflexiva");
+    (irreflexivo(matriz))
+      ? console.log("La matriz SI es irreflexiva")
+      : console.log("La matriz NO es irreflexiva");
+    (transitiva(matriz))
+      ? console.log("La matriz SI es transitiva")
+      : console.log("La matriz NO es transitiva");
+    (simetrica(matriz))
+      ? console.log("La matriz SI es simetrica")
+      : console.log("La matriz NO es simetrica");
+    (asimetrica(matriz))
+      ? console.log("La matriz SI es asimetrica")
+      : console.log("La matriz NO es asimetrica");
+    (antisimetrica(matriz))
+      ? console.log("La matriz SI es antisimetrica")
+      : console.log("LA matriz NO es antisimetrica");
+    console.log(matriz);
+  }, 500)
 }
 
 const reflexivo = (matriz=[]) => {

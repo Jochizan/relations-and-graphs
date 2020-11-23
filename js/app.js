@@ -79,16 +79,32 @@ const init = () => {
       diagram.clearSelection();
     }
   }
-  generateGraph();
+  generateGraphAleatory();
   chooseTwoNodes();
 }
 
-//let names = [
-//"Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
-//"Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
-//"Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
-//];
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
+const generateGraphAleatory = () => {
+  const names = [
+    "Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
+    "Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
+    "Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
+  ];
+  const nodeDataArray = [];
+  for (let i = 0; i < names.length; i++) {
+    nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
+  }
+  const linkDataArray = [];
+  let num = nodeDataArray.length;
+  for (let i = 0; i < num * 2; i++) {
+    let a = Math.floor(i/2);
+    let b = Math.floor(Math.random() * num / 4) + 1;
+    linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
+  }
+  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+}
+
+// Create an assign a model that Array values.
 const generateGraph = () => {
   let fc = parseInt(document.getElementById("fc").value);
   let paths = document.getElementById("myPaths");
@@ -118,7 +134,7 @@ const generateGraph = () => {
   }
   const nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: names[i], text: names[i], color: go.Brush.randomColor(128, 240) });
+    nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
   }
   const linkDataArray = [];
   let num = nodeDataArray.length;
