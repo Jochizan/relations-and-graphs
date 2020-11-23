@@ -19,7 +19,7 @@
   </head>
   <body onload="init()">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem;">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem; border-radius: 0;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,12 +42,11 @@
     </header>
     <main>
       <hr class="my-4">
-      <div class="code"><b style=""># Fira Code Light</b>
+      <div class="code"><b style="color: red;"># Ejemplos de Relaciones</b>
         take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
         | n <i>&lt;=</i> 0 <i>=&gt;</i> []
         | empty list <i>=&gt;</i> []
         | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-
         last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div class="d-flex justify-content-center">
         <input type="number" class="inputs-array" placeholder="">
@@ -56,12 +55,11 @@
         <input type="text" class="inputs-array" placeholder="">
         <input type="number" class="inputs-array" placeholder="">
       </div>
-      <div class="code"><b style=""># Fira Code Light</b>
+      <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
         take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
         | n <i>&lt;=</i> 0 <i>=&gt;</i> []
         | empty list <i>=&gt;</i> []
         | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-
         last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div class="d-flex justify-content-center">
         <input type="text" class="" placeholder="">
@@ -84,31 +82,37 @@
       <div class="container">
         <div id="sample" class="col">
           <div id="myDiagramDiv" style="border: 0.1rem solid black; background: white; width: 100%; height: 70.0rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <canvas id="canvas" tabindex="0" width="auto" height="100%" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; width: 100%; height: 100%;">This text is displayed if your browser does not support the Canvas HTML element.
+            <canvas id="canvas" tabindex="0" width="auto" height="100%" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;">This text is displayed if your browser does not support the Canvas HTML element.
             </canvas>
             <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
               <div style="position: absolute; width: 60.0rem; height: 0.1rem;">
               </div>
             </div>
           </div>
-          <hr class="my-4">
-          Click on a node to show distances from that node to each other node.
-          Click on a second node to show a shortest path from the first node to the second node.
-          (Note that there might not be any path between the nodes.)
-          Clicking on a third node will de-select the first two.
         </div>
+      </div>
+      <hr class="my-4">
+      <div style="margin-left: 1.0rem; margin-right: 1.0rem;">
         <p>
-        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.6rem;">Choose another two nodes at random</button>
+        Haga clic en un nodo para mostrar las distancias entre ese nodo y los demás.
+        Haga clic en un segundo nodo para mostrar una ruta más corta desde el primer nodo al segundo nodo.
+        (Tenga en cuenta que es posible que no haya ninguna ruta entre los nodos).
+        Hacer clic en un tercer nodo anulará la selección de los dos primeros.
         </p>
         <p>
-        Here is a list of all paths between the first and second selected nodes.
-        Select a path to highlight it in the diagram.
+        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.6rem;">Elija otros dos nodos al azar</button>
+        </p>
+        <hr class="my-4">
+        <p>
+        Aquí hay una lista de todas las rutas entre el primer y segundo nodos seleccionado.
+        Seleccione una ruta para resaltarla en el diagrama.
         </p>
         <div class="d-flex justify-content-center">
           <select id="myPaths" style="min-width: 30.0rem; height: auto;" size="10">
           </select>
           <img src="img/bestNodding.gif" alt="best Gif">
         </div>
+      </div>
     </main>
     <footer>
       <div class="container-footer-all">
