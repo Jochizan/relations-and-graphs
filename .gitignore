@@ -2,5 +2,4 @@ release/
 debug.log
 assets/css/bootstrap.min.css
 assets/css/jquery-ui.min.css
-assets/js/bootstrap.min.js
-assets/js/jquery-ui.min.js
+assets/js/
