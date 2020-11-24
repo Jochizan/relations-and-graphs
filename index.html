@@ -42,30 +42,148 @@
     </header>
     <main>
       <hr class="my-4">
+      <div id="input-area" class="d-block" align=center>
+        <h3 id="prompt">
+          <label for="expression">
+            <span id="normal-prompt">Calcula la relación de …</span>
+            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+          </label>
+        </h3>
+        <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
+        <form id="expression-form" action="" onsubmit="return stillLoading();">
+          <fieldset>
+            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
+              <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
+              <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
+            </a>
+            <input id="go" class="round button" type="submit" value="Ir">
+            <div id="expression-wrapper">
+              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            </div>
+            <div id="keyboard">
+              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
+            </div>
+          </fieldset>
+        </form>
+        <p id="expression-preview-header">Esto será calculado:</p>
+        <div id="expression-preview" class="formula round">
+          <div id="main-var-unused-warning-icon" style="display: none;">
+            <a href="javascript:void 0" onclick="return stillLoading();">
+              <img src="layout/xwarning.png,q1473621393.pagespeed.ic.30fHDPU5lR.webp">
+            </a>
+          </div>
+          <div id="expression-preview-ruler">
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td style="text-align: left; vertical-align: top;">
+                  <p id="loading" style="display: none;">
+                  <strong>Cargando … ¡Por favor espera!</strong>
+                  <br>Esto tomará unos segundos.
+                  </p>
+                  <div id="expression-preview-formula">
+                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
+                    </div>
+                  </div>
+                  <p id="error-message" style="display: none;">
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+      </div>
       <div class="code"><b style="color: red;"># Ejemplos de Relaciones</b>
         take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
         | n <i>&lt;=</i> 0 <i>=&gt;</i> []
         | empty list <i>=&gt;</i> []
         | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
-      <div class="d-flex justify-content-center">
-        <input type="number" class="inputs-array" placeholder="">
-        <input type="text" class="inputs-array" placeholder="">
-        <input type="text" class="" placeholder="">
-        <input type="text" class="inputs-array" placeholder="">
-        <input type="number" class="inputs-array" placeholder="">
+        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse
       </div>
-      <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
-        take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
-        | n <i>&lt;=</i> 0 <i>=&gt;</i> []
-        | empty list <i>=&gt;</i> []
-        | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
-      <div class="d-flex justify-content-center">
-        <input type="text" class="" placeholder="">
-        <input type="text" class="inputs-array" placeholder="">
-        <input type="number" class="inputs-array" placeholder="">
+      <div id="input-area" class="d-block" align=center>
+        <h3 id="prompt">
+          <label for="expression">
+            <span id="normal-prompt">Calcula la relación de …</span>
+            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+          </label>
+        </h3>
+        <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
+        <form id="expression-form" action="" onsubmit="return stillLoading();">
+          <fieldset>
+            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
+              <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
+              <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
+            </a>
+            <input id="go" class="round button" type="submit" value="Ir">
+            <div id="expression-wrapper">
+              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            </div>
+            <div id="keyboard">
+              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
+            </div>
+          </fieldset>
+        </form>
+        <p id="expression-preview-header">Esto será calculado:</p>
+        <div id="expression-preview" class="formula round">
+          <div id="main-var-unused-warning-icon" style="display: none;">
+            <a href="javascript:void 0" onclick="return stillLoading();">
+              <img src="layout/xwarning.png,q1473621393.pagespeed.ic.30fHDPU5lR.webp">
+            </a>
+          </div>
+          <div id="expression-preview-ruler">
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td style="text-align: left; vertical-align: top;">
+                  <p id="loading" style="display: none;">
+                  <strong>Cargando … ¡Por favor espera!</strong>
+                  <br>Esto tomará unos segundos.
+                  </p>
+                  <div id="expression-preview-formula">
+                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
+                    </div>
+                  </div>
+                  <p id="error-message" style="display: none;">
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
       </div>
+        <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
+          take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
+          | n <i>&lt;=</i> 0 <i>=&gt;</i> []
+          | empty list <i>=&gt;</i> []
+          | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
+          last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
+      <div id="input-area" class="d-block" align=center>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+      </div>
+
       <div class="d-flex justify-content-center">
         <form class="form-inline my-2 my-lg-0">
           <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="Tamaño de la matriz" style="font-size: 1.8rem;">
@@ -113,7 +231,7 @@
           <img src="img/bestNodding.gif" alt="best Gif">
         </div>
       </div>
-        <hr class="my-4">
+      <hr class="my-4">
     </main>
     <footer>
       <div class="container-footer-all">
