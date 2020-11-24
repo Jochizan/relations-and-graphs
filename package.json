@@ -1,0 +1,33 @@
+{
+  "name": "ProyectoRelacionesyGrafos",
+  "version": "0.1.1",
+  "description": "- Este proyecto tratara de la creación de relaciones y grafos con html, css y js.",
+  "main": "index.js",
+  "scripts": {
+    "inicio" : "índice de nodo" , 
+    "dev" : "índice de nodemon" , 
+    "prueba" : "broma"
+  },
+  "author": "Joan Roca",
+  "files": [
+    "package.json",
+    "index.html",
+    "README.md",
+    "icons",
+    "js",
+    "assets",
+    "license.html",
+    "release"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Johan769/ProyectoRelacionesyGrafos.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Johan769/ProyectoRelacionesyGrafos/issues",
+    "email": "remnyachizot2015@gmail.com"
+  },
+  "homepage": "https://github.com/Johan769/ProyectoRelacionesyGrafos#readme"
+}
