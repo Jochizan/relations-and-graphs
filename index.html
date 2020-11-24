@@ -1,23 +1,301 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8" />
+    <title>Graph Distances and Paths</title>
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/highlight.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/main.css">
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="release/go.js"></script>
+    <script src="assets/js/highlight.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <title>Grafos</title>
+    <link rel="shortcut icon" type="imagen/x-icon" href="img/Logo.ico">
   </head>
-  <body background="#485FF2">
-    <h1>PITIN ES UN CRACK</h1>
+  <body onload="init()">
     <header>
-      header content
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem; border-radius: 0;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="img/Logo.jpg"></a>
+        <a class="navbar-brand" href="#" style="font-size: 3.0rem;">Trazos</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03" >
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Teoria <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Soluciones <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Contactenos<span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
     <main>
-      main content
+      <hr class="my-4">
+      <div id="input-area" class="d-block" align=center>
+        <h3 id="prompt">
+          <label for="expression">
+            <span id="normal-prompt">Calcula la relación de …</span>
+            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+          </label>
+        </h3>
+        <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
+        <form id="expression-form" action="" onsubmit="return stillLoading();">
+          <fieldset>
+            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
+              <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
+              <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
+            </a>
+            <input id="go" class="round button" type="submit" value="Ir">
+            <div id="expression-wrapper">
+              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            </div>
+            <div id="keyboard">
+              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
+            </div>
+          </fieldset>
+        </form>
+        <p id="expression-preview-header">Esto será calculado:</p>
+        <div id="expression-preview" class="formula round">
+          <div id="main-var-unused-warning-icon" style="display: none;">
+            <a href="javascript:void 0" onclick="return stillLoading();">
+              <img src="layout/xwarning.png,q1473621393.pagespeed.ic.30fHDPU5lR.webp">
+            </a>
+          </div>
+          <div id="expression-preview-ruler">
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td style="text-align: left; vertical-align: top;">
+                  <p id="loading" style="display: none;">
+                  <strong>Cargando … ¡Por favor espera!</strong>
+                  <br>Esto tomará unos segundos.
+                  </p>
+                  <div id="expression-preview-formula">
+                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
+                    </div>
+                  </div>
+                  <p id="error-message" style="display: none;">
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+      </div>
+      <div class="code"><b style="color: red;"># Ejemplos de Relaciones</b>
+        take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
+        | n <i>&lt;=</i> 0 <i>=&gt;</i> []
+        | empty list <i>=&gt;</i> []
+        | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
+        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse
+      </div>
+      <div id="input-area" class="d-block" align=center>
+        <h3 id="prompt">
+          <label for="expression">
+            <span id="normal-prompt">Calcula la relación de …</span>
+            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+          </label>
+        </h3>
+        <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
+        <form id="expression-form" action="" onsubmit="return stillLoading();">
+          <fieldset>
+            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
+              <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
+              <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
+            </a>
+            <input id="go" class="round button" type="submit" value="Ir">
+            <div id="expression-wrapper">
+              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            </div>
+            <div id="keyboard">
+              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
+              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
+              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
+            </div>
+          </fieldset>
+        </form>
+        <p id="expression-preview-header">Esto será calculado:</p>
+        <div id="expression-preview" class="formula round">
+          <div id="main-var-unused-warning-icon" style="display: none;">
+            <a href="javascript:void 0" onclick="return stillLoading();">
+              <img src="layout/xwarning.png,q1473621393.pagespeed.ic.30fHDPU5lR.webp">
+            </a>
+          </div>
+          <div id="expression-preview-ruler">
+          </div>
+          <table>
+            <tbody>
+              <tr>
+                <td style="text-align: left; vertical-align: top;">
+                  <p id="loading" style="display: none;">
+                  <strong>Cargando … ¡Por favor espera!</strong>
+                  <br>Esto tomará unos segundos.
+                  </p>
+                  <div id="expression-preview-formula">
+                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
+                    </div>
+                  </div>
+                  <p id="error-message" style="display: none;">
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+      </div>
+        <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
+          take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
+          | n <i>&lt;=</i> 0 <i>=&gt;</i> []
+          | empty list <i>=&gt;</i> []
+          | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
+          last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
+      <div id="input-area" class="d-block" align=center>
+        <p id="input-hint">
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <form class="form-inline my-2 my-lg-0">
+          <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="Tamaño de la matriz" style="font-size: 1.8rem;">
+          <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
+          <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Ingresar</button>
+          <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
+        </form>
+      </div>
+      <div class="d-flex justify-content-center">
+        <ul id="stock" class="grafo">
+        </ul>
+      </div>
+      <hr class="my-4">
+      <div class="container">
+        <div id="sample" class="col">
+          <div id="myDiagramDiv" style="border: 0.1rem solid black; background: white; width: 100%; height: 70.0rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
+            <canvas id="canvas" tabindex="0" width="auto" height="100%" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;">This text is displayed if your browser does not support the Canvas HTML element.
+            </canvas>
+            <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
+              <div style="position: absolute; width: 60.0rem; height: 0.1rem;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div style="margin-left: 1.0rem; margin-right: 1.0rem;">
+        <p>
+        Haga clic en un nodo para mostrar las distancias entre ese nodo y los demás.
+        Haga clic en un segundo nodo para mostrar una ruta más corta desde el primer nodo al segundo nodo.
+        (Tenga en cuenta que es posible que no haya ninguna ruta entre los nodos).
+        Hacer clic en un tercer nodo anulará la selección de los dos primeros.
+        </p>
+        <p>
+        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.6rem;">Elija otros dos nodos al azar</button>
+        </p>
+        <hr class="my-4">
+        <p>
+        Aquí hay una lista de todas las rutas entre el primer y segundo nodos seleccionado.
+        Seleccione una ruta para resaltarla en el diagrama.
+        </p>
+        <div class="d-flex justify-content-center">
+          <select id="myPaths" style="min-width: 30.0rem; height: auto;" size="10">
+          </select>
+          <img src="img/bestNodding.gif" alt="best Gif">
+        </div>
+      </div>
+      <hr class="my-4">
     </main>
     <footer>
-      footer content
+      <div class="container-footer-all">
+        <div class="container-body">
+          <div class="colum1">
+            <h1>Creadores de la pagina e información</h1>
+            <p>Esta pagina fue creada por estudiantes DEL 4TO SEMESTRE de la Facultad
+            Ingenieria de Sistemas de la Universidad Nacional del Centro del Perú.
+            </p>
+            <img style="width:25.0rem; height:14.0rem; margin-left: 5.5rem" src="img/uncp.jpg" >
+          </div>
+            <div class="colum2">
+              <h1>Redes Sociales</h1>
+              <div class="row">
+                <a href="https://www.facebook.com/"><img src="img/facebook.png"></a>
+                <label>Siguenos en Facebook</label>
+              </div>
+              <div class="row">
+                <a href="https://twitter.com/?lang=es"><img src="img/twitter.png"></a>
+                <label>Siguenos en Twitter</label>
+              </div>
+              <div class="row">
+                <a href="https://www.instagram.com/?hl=es-la"><img src="img/instagram.png">
+                  <label>Siguenos en Instagram</label>
+              </div>
+              <div class="row">
+                <a href="#"><img src="img/google-plus.png"></a> 
+                <label>Siguenos por Google </label>
+              </div>
+              <div class="row">
+                <a href="#"><img src="img/tumblr.png"></a>
+                <label>Siguenos en Snapchat</label>
+              </div>
+            </div>
+            <div class="colum3">
+              <h1>Información Contacto</h1>
+              <div class="row2">
+                <img src="img/house.png">
+                <label>Dirección:Mariscal Castilla 3909, Huancayo 12006</label>
+              </div>
+              <div class="row2">
+                <img src="img/smartphone.png">
+                <label>Cel:983417735<br>Cel1:983328458<br>Cel3:999555217</label>
+              </div>
+              <div class="row2">
+                <img src="img/contact.png">
+                <label>Email:<br>estefanysadith14@gmail.com</label>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="container-footer">
+        <div class="footer">
+          <div class="copyright">
+            © 2020 Todos los Derechos Reservados Universitarios| <a href="">FIS_UNCP</a>
+          </div>
+          <div class="information">
+            <a href="">Informacion </a> | <a href="">Privacion y Politica</a> | <a href="">Terminos y Condiciones</a>
+          </div>
+        </div>
+      </div>
     </footer>
+    <script src="js/index.js"></script>
+    <script src="js/time.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
