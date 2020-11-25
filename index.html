@@ -57,11 +57,11 @@
               <img id="keyboard-hide" src="">
             </a>
             <div id="d-flex justify-content-center">
-              <input id="expression1" class="inputs-values" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression2" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression3" class="input-especial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression4" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression5" class="inputs-values" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression1" class="inputs-values" type="number" placeholder="mayor a" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression2" class="inputs-initial" type="text" placeholder="signo" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression3" class="input-especial" type="text" placeholder="ecuación" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression4" class="inputs-initial" type="text" placeholder="signo" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression5" class="inputs-values" type="number" placeholder="menor a" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
             </div>
             <button onclick="generarVector()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 1.2rem; margin-bottom: 1.8rem;">Ingresar</button>
             <div id="keyboard">
@@ -180,7 +180,8 @@
           </table>
         </div>
         <p id="input-hint">
-        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
+        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".
+        </p>
       </div>
       <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
         take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
@@ -189,38 +190,48 @@
         | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
         last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div id="input-area" class="d-block" align=center>
-        <p id="input-hint">
-        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
       </div>
       <div class="d-flex justify-content-center">
-        <form class="form-inline my-2 my-lg-0">
-          <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="Tamaño de la matriz" style="font-size: 1.8rem;">
-          <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
-          <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Ingresar</button>
-          <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
-        </form>
-      </div>
-      <div class="d-flex justify-content-center">
-        <ul id="stock" class="grafo">
-        </ul>
-        <div>
-          <p id="reflexivo"></p>
-          <p id="irreflexivo"></p>
-          <p id="simetrica"></p>
-          <p id="asimetrica"></p>
-          <p id="antisimetrica"></p>
-          <p id="transitiva"></p>
-        </div>
-      </div>
-      <hr class="my-4">
-      <div class="container">
-        <div id="sample" class="col">
-          <div id="myDiagramDiv" style="border: 0.1rem solid black; background: white; width: 100%; height: 70.0rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-            <canvas id="canvas" tabindex="0" width="auto" height="100%" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;">This text is displayed if your browser does not support the Canvas HTML element.
-            </canvas>
-            <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
-              <div style="position: absolute; width: 60.0rem; height: 0.1rem;">
+        <div class="flex-container">
+          <div class="d-flex justify-content-center">
+            <div class="d-block" align=center>
+              <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="size" style="font-size: 1.8rem; width: 12rem;">
+              <div>
+                <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
+                <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Calcular</button>
+                <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
+                <ul id="stock" class="grafo">
+                </ul>
               </div>
+            </div>
+          </div>
+          <div class="d-block">
+            <p id="reflexivo"></p>
+            <p id="irreflexivo"></p>
+            <p id="simetrica"></p>
+            <p id="asimetrica"></p>
+            <p id="antisimetrica"></p>
+            <p id="transitiva"></p>
+          </div>
+          <div style="position: relative;">
+            <div class="d-flex justify-content-center">
+              <div class="justify-content-center h-100">
+                <div class="card shadow" style="border: 0.5;">
+                  <div class="card-body bg-dark">
+                    <h1 class="" style="font-size: 1.8rem; color: white;" align=center>Grafo</h1>
+                    <div class="d-flex justify-content-center">
+                      <div id="myDiagramDiv"  style="border: 0.2rem solid white; background: white; width: 50rem; height: 50rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
+                        <canvas id="canvas" tabindex="0" width="50rem" height="50rem" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;" >This text is displayed if your browser does not support the Canvas HTML element.
+                        </canvas>
+                          <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
+                            <div style="position: absolute; width: 50rem; height: 50rem;">
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>  
             </div>
           </div>
         </div>

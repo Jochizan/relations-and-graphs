@@ -166,6 +166,17 @@ footer {
   padding: 40px;
 }
 
+.code {
+  font-family: Fira Code;
+  font-feature-settings: "calt"1;
+  font-weight: 600;
+  text-rendering: optimizeLegibility;
+  width: 45rem;
+  margin: 2rem auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
 .container-body {
   display: flex;
   justify-content: space-between;
@@ -236,12 +247,12 @@ footer {
   max-width: 140px;
 }
 
-.container-footer{
-  width: 100%;  
+.container-footer {
+  width: 100%;
   background: #101010;
 }
 
-.footer{
+.footer {
   max-width: 1200px;
   margin: auto;
   display: flex;
@@ -249,23 +260,31 @@ footer {
   padding: 20px;
 }
 
-.copyright{
+.copyright {
   color: #C7C7C7;
 }
 
-.copyright a{
+.dvContainer {
+  position: relative;
+  display: inline-block;
+  width: 30.0rem;
+  height: 20.0rem;
+  background-color: #ccc;
+}
+
+.copyright a {
   text-decoration: none;
   color: white;
   font-weight: bold;
 }
 
-.information a{
+.information a {
   text-decoration: none;
   color: #C7C7C7;
 }
 
 
-@media screen and (max-width: 1100px){
+@media screen and (max-width: 1100px) {
   .container-body{
     flex-wrap: wrap;
   }
@@ -278,13 +297,17 @@ footer {
   }
 }
 
-.code {
-  font-family: Fira Code;
-  font-feature-settings: "calt"1;
-  font-weight: 600;
-  text-rendering: optimizeLegibility;
-  width: 45rem;
-  margin: 2rem auto;
-  white-space: pre-wrap;
-  word-break: break-all;
+.flex-container {
+  display: flex;
+  /*width: 100%;*/
+  /*height: auto;*/
+  flex-direction: row;
+}
+
+@media (max-width: 1000px) {
+  .flex-container {
+    /*width: 100%;*/
+    /*height: auto;*/
+    flex-direction: column;
+  }
 }

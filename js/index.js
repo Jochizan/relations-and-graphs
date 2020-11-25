@@ -6,6 +6,9 @@ let matriz = [];
 const crearArray = () => {
   const fc = parseInt(document.getElementById("fc").value);
   const doc = document.getElementById("stock");
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
@@ -18,14 +21,14 @@ const crearArray = () => {
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val">n`;
+          doc.innerHTML += `<input id="vals" class="inputs-array" value="n">`;
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val">${range}`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="cx-val">${range}`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
         }
         val++;
         range++;
@@ -39,36 +42,81 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  const reflexivo1 = document.getElementById("reflexivo");
-  const irreflexivo2 = document.getElementById("irreflexivo");
-  const simetrico3 = document.getElementById("simetrica");
-  const asimetrico4 = document.getElementById("asimetrica");
-  const antisimetrico5 = document.getElementById("antisimetrica");
-  const transitiva6 = document.getElementById("transitiva");
-  (reflexivo(matriz))
-    ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
-    : reflexivo1.innerHTML = "NO ES REFLEXIVO";
-  (irreflexivo(matriz))
-    ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
-    : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
-  (simetrica(matriz))
-    ? simetrico3.innerHTML = "SI ES SIMETRICA"
-    : simetrico3.innerHTML = "NO ES SIMETRICA";
-  (asimetrica(matriz))
-    ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
-    : asimetrico4.innerHTML = "NO ES ASIMETRICA";
-  (antisimetrica(matriz))
-    ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
-    : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
-  (transitiva(matriz))
-    ? transitiva6.innerHTML = "SI ES TRANSITIVA"
-    : transitiva6.innerHTML = "NO ES TRANSITIVA";
-  console.log(matriz);
+  if (!matriz.length) {
+    const fc = document.getElementById("fc").value;
+    let k = 0;
+    let l = 0;
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      k++;
+      if (k == fc) {
+        k = 0;
+        l++;
+      }
+    }
+    const reflexivo1 = document.getElementById("reflexivo");
+    const irreflexivo2 = document.getElementById("irreflexivo");
+    const simetrico3 = document.getElementById("simetrica");
+    const asimetrico4 = document.getElementById("asimetrica");
+    const antisimetrico5 = document.getElementById("antisimetrica");
+    const transitiva6 = document.getElementById("transitiva");
+    (reflexivo(matriz))
+      ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
+      : reflexivo1.innerHTML = "NO ES REFLEXIVO";
+    (irreflexivo(matriz))
+      ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
+      : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
+    (simetrica(matriz))
+      ? simetrico3.innerHTML = "SI ES SIMETRICA"
+      : simetrico3.innerHTML = "NO ES SIMETRICA";
+    (asimetrica(matriz))
+      ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
+      : asimetrico4.innerHTML = "NO ES ASIMETRICA";
+    (antisimetrica(matriz))
+      ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
+      : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
+    (transitiva(matriz))
+      ? transitiva6.innerHTML = "SI ES TRANSITIVA"
+      : transitiva6.innerHTML = "NO ES TRANSITIVA";
+    console.log(matriz);
+  } else {
+    const reflexivo1 = document.getElementById("reflexivo");
+    const irreflexivo2 = document.getElementById("irreflexivo");
+    const simetrico3 = document.getElementById("simetrica");
+    const asimetrico4 = document.getElementById("asimetrica");
+    const antisimetrico5 = document.getElementById("antisimetrica");
+    const transitiva6 = document.getElementById("transitiva");
+    (reflexivo(matriz))
+      ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
+      : reflexivo1.innerHTML = "NO ES REFLEXIVO";
+    (irreflexivo(matriz))
+      ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
+      : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
+    (simetrica(matriz))
+      ? simetrico3.innerHTML = "SI ES SIMETRICA"
+      : simetrico3.innerHTML = "NO ES SIMETRICA";
+    (asimetrica(matriz))
+      ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
+      : asimetrico4.innerHTML = "NO ES ASIMETRICA";
+    (antisimetrica(matriz))
+      ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
+      : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
+    (transitiva(matriz))
+      ? transitiva6.innerHTML = "SI ES TRANSITIVA"
+      : transitiva6.innerHTML = "NO ES TRANSITIVA";
+    console.log(matriz);
+  }
 }
 
 const matrizRelacional = () => {
   const doc = document.getElementById("stock");
   const fc = matriz.length;
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
@@ -108,9 +156,9 @@ const generarMatriz = () => {
     document.getElementById("messageValid2").innerHTML = "SI SE PUDO GENERAR LA MATRIZ";
   }
   const text = document.getElementById("expression7").value;
-  //vector = generarVector();
-  matriz = [];
   const n = vector.length;
+  matriz = [];
+  //vector = generarVector();
   for (let i = 0; i < n; ++i) {
     matriz.push([]);
   }
@@ -132,9 +180,12 @@ const generarMatriz = () => {
     }
   }
   const doc = document.getElementById("stock");
-  doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
+  doc.innerHTML = "";
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   for (let i = 0; i < n + 1; ++i) {
     doc.innerHTML += `<div>`
     for (let j = 0; j < n + 1; ++j) {
@@ -143,14 +194,14 @@ const generarMatriz = () => {
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
-          doc.innerHTML += `<input id="val${0}" class="fx-val" value="n">`;
+          doc.innerHTML += `<input id="val${0}" class="inputs-array" value="n">`;
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val" value="${vector[i-1]}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[i-1]}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="cx-val" value="${vector[j-1]}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[j-1]}">`;
         }
         val++;
       }
@@ -215,8 +266,8 @@ const generarVector = () => {
       vector.push(i);
     }
   }
-  mostrar.innerHTML = "";
   title.innerHTML = "Estos son los valores que cumplen la condición anterior"
+  mostrar.innerHTML = "";
   for (let i = 0; i < vector.length - 1; ++i) {
     mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[i]}},</p>`
   }
