@@ -1,9 +1,9 @@
 'use strict'
 
 const crearArray = () => {
-  let fc = parseInt(document.getElementById("fc").value);
-  let doc = document.getElementById("stock");
-  doc.innerHTML = ``;
+  const fc = parseInt(document.getElementById("fc").value);
+  const doc = document.getElementById("stock");
+  doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
   let range = 1;
@@ -15,14 +15,14 @@ const crearArray = () => {
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
-          doc.innerHTML += `<input tpye="text" id="val${0}" class="fx-val" placeholder="cls">`;
+          doc.innerHTML += `<p id="val${val}" class="fx-val">n</p>`;
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input type="text" id="val${val}" class="fx-val">`;
+          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input type="text" id="val${val}" class="cx-val">`;
+          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
         }
         val++;
         range++;
@@ -36,10 +36,10 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  let fc = document.getElementById("fc").value;
+  const fc = document.getElementById("fc").value;
+  const matriz = [];
   let k = 0;
   let l = 0;
-  const matriz = [];
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
@@ -51,35 +51,136 @@ const calcular = () => {
       l++;
     }
   }
-  setTimeout(() => {
-    for (let i = 0; i < fc; ++i) {
-      for (let j = 0; j < fc; ++j) {
-        console.log(matriz[i][j]);
+  const reflexivo1 = document.getElementById("reflexivo");
+  const irreflexivo2 = document.getElementById("irreflexivo");
+  const simetrico3 = document.getElementById("simetrica");
+  const asimetrico4 = document.getElementById("asimetrica");
+  const antisimetrico5 = document.getElementById("antisimetrica");
+  const transitiva6 = document.getElementById("transitiva");
+  (reflexivo(matriz))
+    ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
+    : reflexivo1.innerHTML = "NO ES REFLEXIVO";
+  (irreflexivo(matriz))
+    ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
+    : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
+  (simetrica(matriz))
+    ? simetrico3.innerHTML = "SI ES SIMETRICA"
+    : simetrico3.innerHTML = "NO ES SIMETRICA";
+  (asimetrica(matriz))
+    ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
+    : asimetrico4.innerHTML = "NO ES ASIMETRICA";
+  (antisimetrica(matriz))
+    ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
+    : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
+  (transitiva(matriz))
+    ? transitiva6.innerHTML = "SI ES TRANSITIVA"
+    : transitiva6.innerHTML = "NO ES TRANSITIVA";
+  (reflexivo(matriz))
+    ? console.log("La matriz SI es reflexiva")
+    : console.log("La matriz NO es reflexiva");
+  (irreflexivo(matriz))
+    ? console.log("La matriz SI es irreflexiva")
+    : console.log("La matriz NO es irreflexiva");
+  (simetrica(matriz))
+    ? console.log("La matriz SI es simetrica")
+    : console.log("La matriz NO es simetrica");
+  (asimetrica(matriz))
+    ? console.log("La matriz SI es asimetrica")
+    : console.log("La matriz NO es asimetrica");
+  (antisimetrica(matriz))
+    ? console.log("La matriz SI es antisimetrica")
+    : console.log("LA matriz NO es antisimetrica");
+  (transitiva(matriz))
+    ? console.log("La matriz SI es transitiva")
+    : console.log("La matriz NO es transitiva");
+  console.log(matriz);
+}
+
+const matrizRelacional = () => {
+  const matriz = generarMatriz();
+  const doc = document.getElementById("stock");
+  const fc = matriz.length;
+  doc.innerHTML = "";
+  let numInputs = 1;
+  let val = 1;
+  let range = 1;
+  for (let i = 0; i < fc + 1; ++i) {
+    doc.innerHTML += `<div>`
+    for (let j = 0; j < fc + 1; ++j) {
+      if (i !== 0 && j !== 0) {
+        doc.innerHTML += `<input type="number" id="input${numInputs}" min="0" max="1" value="${matriz[i][j]}"class="inputs-array">`
+        numInputs++;
+      } else {
+        if (i === 0 && j === 0) {
+          doc.innerHTML += `<p id="val${val}" class="fx-val">n</p>`;
+          continue;
+        }
+        if (i !== 0) {
+          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
+        }
+        if (j !== 0) {
+          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
+        }
+        val++;
+        range++;
+        if (range - 1 === fc) {
+          range = 1;
+        }
       }
     }
-    (reflexivo(matriz))
-      ? console.log("La matriz SI es reflexiva")
-      : console.log("La matriz NO es reflexiva");
-    (irreflexivo(matriz))
-      ? console.log("La matriz SI es irreflexiva")
-      : console.log("La matriz NO es irreflexiva");
-    (simetrica(matriz))
-      ? console.log("La matriz SI es simetrica")
-      : console.log("La matriz NO es simetrica");
-    (asimetrica(matriz))
-      ? console.log("La matriz SI es asimetrica")
-      : console.log("La matriz NO es asimetrica");
-    (antisimetrica(matriz))
-      ? console.log("La matriz SI es antisimetrica")
-      : console.log("LA matriz NO es antisimetrica");
-    (transitiva(matriz))
-      ? console.log("La matriz SI es transitiva")
-      : console.log("La matriz NO es transitiva");
-    console.log(matriz);
-  }, 500)
+    doc.innerHTML += `</div>`
+  }
+}
+
+const generarVector = () => {
+  if (!validateFirst()) {
+    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR LA MATRIZ";
+  }
+  const vector = [];
+  const text = document.getElementById("expression3").value;
+  const value1 = document.getElementById("expression1").value;
+  const value2 = document.getElementById("expression5").value;
+  const condition1 = document.getElementById("expression2").value;
+  const condition2 = document.getElementById("expression4").value;
+  const solve1 = value1 + " = "+ text;
+  const solve2 = value2 + " = "+ text;
+  const solution1 = nerdamer.solve(solve1, 'x');
+  const solution2 = nerdamer.solve(solve2, 'x');
+  const principio = solution1.symbol.elements[0].multiplier.num.value /
+    solution1.symbol.elements[0].multiplier.den.value;
+  const final = solution2.symbol.elements[0].multiplier.num.value /
+    solution2.symbol.elements[0].multiplier.den.value;
+  if (condition1 === "<=" && condition2 === "<=") {
+    console.log(principio, final);
+    for (let i = Math.ceil(principio); i <= Math.floor(final); ++i) {
+      console.log(Math.ceil(principio), final);
+      vector.push(i);
+    }
+  } else if (condition1 === "<=" && condition2 === "<") {
+    let ok = (Math.floor(final) === final);
+    for (let i = Math.ceil(principio); ok ? i < final : i < final + 1; ++i) {
+      vector.push(i);
+    }
+  } else if (condition1 === "<" && condition2 === "<=") {
+    let ok = (Math.floor(principio) === principio)
+    for (let i = (ok ? principio + 1 : principio); i <= Math.floor(final); ++i) {
+      vector.push(i);
+    }
+  } else {
+    let ok = (Math.floor(final) === final);
+    let ans = (Math.floor(principio) === principio)
+    for (let i = (ans ? principio + 1 : principio); ok ? i < final : i < final + 1; ++i) {
+      vector.push(i);
+    }
+  }
+  console.log(vector);
+  return vector;
 }
 
 const reflexivo = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let fc = matriz.length;
   let count = 0;
   for (let i = 0; i < fc; ++i) {
@@ -93,6 +194,9 @@ const reflexivo = (matriz=[]) => {
 }
 
 const irreflexivo = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let fc = matriz.length;
   let count = 0;
   for (let i = 0; i < fc; ++i) {
@@ -106,6 +210,9 @@ const irreflexivo = (matriz=[]) => {
 }
 
 const simetrica = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let ok = true;
   let n = matriz.length;
   for (let i = 0; i < n; ++i) {
@@ -125,6 +232,9 @@ const simetrica = (matriz=[]) => {
 }
 
 const asimetrica = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let ok = true;
   let n = matriz.length;
   if (!irreflexivo(matriz)) {
@@ -149,6 +259,9 @@ const asimetrica = (matriz=[]) => {
 }
 
 const antisimetrica = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let ok = true;
   let n = matriz.length;
   for (let i = 0; i < n; ++i) {
@@ -170,6 +283,9 @@ const antisimetrica = (matriz=[]) => {
 }
 
 const transitiva = (matriz=[]) => {
+  if (matriz === []) {
+    console.error("Error no puede ingresar una matriz nula");
+  }
   let transitividad = true;
   let n = matriz.length;
   for (let i = 0; i < n; ++i) {

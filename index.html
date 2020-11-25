@@ -56,10 +56,15 @@
               <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
               <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
             </a>
-            <input id="go" class="round button" type="submit" value="Ir">
-            <div id="expression-wrapper">
-              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            <div id="d-flex justify-content-center">
+              <input id="expression1" class="inputs-initial" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression2" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression3" class="input-especial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression4" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression5" class="inputs-initial" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="go" class="round button" type="submit" value="Ir">
             </div>
+            <button onclick="generarVector()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 1.2rem; margin-bottom: 1.8rem;">Ingresar</button>
             <div id="keyboard">
               <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
               <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
@@ -74,6 +79,7 @@
           </fieldset>
         </form>
         <p id="expression-preview-header">Esto será calculado:</p>
+        <p id="messageValid"></p>
         <div id="expression-preview" class="formula round">
           <div id="main-var-unused-warning-icon" style="display: none;">
             <a href="javascript:void 0" onclick="return stillLoading();">
@@ -125,10 +131,15 @@
               <img id="keyboard-show" src="layout/xkeyboard-show.png,q1501768216.pagespeed.ic.BXKxbdm9u3.webp">
               <img id="keyboard-hide" src="layout/xkeyboard-hide.png,q1501768199.pagespeed.ic.dxl2N8J6H2.webp">
             </a>
-            <input id="go" class="round button" type="submit" value="Ir">
-            <div id="expression-wrapper">
-              <input id="expression" class="round text" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+            <div id="d-flex justify-content-center">
+              <input id="expression6" class="inputs-initial" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression7" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression8" class="input-especial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression9" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression10" class="inputs-initial" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="go" class="round button" type="submit" value="Ir">
             </div>
+            <button onclick="validateSecond()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 1.2rem; margin-bottom: 1.8rem;">Ingresar</button>
             <div id="keyboard">
               <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
               <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
@@ -173,17 +184,16 @@
         <p id="input-hint">
         ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
       </div>
-        <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
-          take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
-          | n <i>&lt;=</i> 0 <i>=&gt;</i> []
-          | empty list <i>=&gt;</i> []
-          | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-          last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
+      <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
+        take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
+        | n <i>&lt;=</i> 0 <i>=&gt;</i> []
+        | empty list <i>=&gt;</i> []
+        | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
+        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div id="input-area" class="d-block" align=center>
         <p id="input-hint">
         ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
       </div>
-
       <div class="d-flex justify-content-center">
         <form class="form-inline my-2 my-lg-0">
           <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="Tamaño de la matriz" style="font-size: 1.8rem;">
@@ -195,6 +205,14 @@
       <div class="d-flex justify-content-center">
         <ul id="stock" class="grafo">
         </ul>
+        <div>
+          <p id="reflexivo"></p>
+          <p id="irreflexivo"></p>
+          <p id="simetrica"></p>
+          <p id="asimetrica"></p>
+          <p id="antisimetrica"></p>
+          <p id="transitiva"></p>
+        </div>
       </div>
       <hr class="my-4">
       <div class="container">
@@ -294,8 +312,13 @@
         </div>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/nerdamer.core.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Algebra.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Calculus.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Solve.js"></script>
     <script src="js/index.js"></script>
     <script src="js/time.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/expReg.js"></script>
   </body>
 </html>
