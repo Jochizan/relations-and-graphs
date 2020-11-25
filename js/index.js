@@ -1,6 +1,6 @@
 'use strict'
 
-const crearArray = () => {
+const crearArray = () => {//generar los imput para ingresar los datos de la matriz
   let fc = parseInt(document.getElementById("fc").value);
   let doc = document.getElementById("stock");
   doc.innerHTML = ``;
@@ -26,7 +26,7 @@ const crearArray = () => {
         }
         val++;
         range++;
-        if (range - 1 === fc) {
+        if (range - 1 ===fc) {
           range = 1;
         }
       }
@@ -35,7 +35,7 @@ const crearArray = () => {
   }
 }
 
-const calcular = () => {
+const calcular = () => {//recueprar los datos de la matriz
   let fc = document.getElementById("fc").value;
   let k = 0;
   let l = 0;
@@ -51,7 +51,7 @@ const calcular = () => {
       l++;
     }
   }
-  setTimeout(() => {
+  setTimeout(() => {  
     for (let i = 0; i < fc; ++i) {
       for (let j = 0; j < fc; ++j) {
         console.log(matriz[i][j]);
