@@ -42,10 +42,10 @@ const crearArray = () => {
 }
 
 const calcular = () => {
+  let k = 0;
+  let l = 0;
   if (!matriz.length) {
     const fc = document.getElementById("fc").value;
-    let k = 0;
-    let l = 0;
     for (let i = 0; i < fc; ++i) {
       matriz.push([]);
     }
@@ -83,6 +83,20 @@ const calcular = () => {
       : transitiva6.innerHTML = "NO ES TRANSITIVA";
     console.log(matriz);
   } else {
+    const fc = document.getElementById("fc").value;
+    if (fc !== null) {
+      for (let i = 0; i < fc; ++i) {
+        matriz.push([]);
+      }
+      for (let i = 0; i < fc * fc; ++i) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+        k++;
+        if (k == fc) {
+          k = 0;
+          l++;
+        }
+      }
+    }
     const reflexivo1 = document.getElementById("reflexivo");
     const irreflexivo2 = document.getElementById("irreflexivo");
     const simetrico3 = document.getElementById("simetrica");
