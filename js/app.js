@@ -109,13 +109,13 @@ const generateGraph = () => {
   if (matriz.length >= 21) {
     return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
   }
+  let k = 0;
+  let l = 0;
   const paths = document.getElementById("myPaths");
   const fc = parseInt(document.getElementById("fc").value);
   const names = [];
   const texts = [];
   if (!matriz.length) {
-    let k = 0;
-    let l = 0;
     paths.innerHTML = "";
     for (let i = 1; i < fc + 1; ++i) {
       texts.push(document.getElementById(`val${i}`).value);
@@ -149,6 +149,22 @@ const generateGraph = () => {
     }
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   } else {
+    matriz = [];
+    paths.innerHTML = "";
+    for (let i = 1; i < fc + 1; ++i) {
+      texts.push(document.getElementById(`val${i}`).value);
+    }
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      k++;
+      if (k === fc) {
+        k = 0;
+        l++;
+      }
+    }
     const n = matriz.length;
     const vn = vector.length;
     paths.innerHTML = "";
