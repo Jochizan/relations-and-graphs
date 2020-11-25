@@ -106,7 +106,7 @@ const generateGraphAleatory = () => {
 
 // Create an assign a model that Array values.
 const generateGraph = () => {
-  if (matriz.length >= 30) {
+  if (matriz.length >= 21) {
     return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
   }
   const paths = document.getElementById("myPaths");

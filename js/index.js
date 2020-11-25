@@ -6,6 +6,9 @@ let matriz = [];
 const crearArray = () => {
   const fc = parseInt(document.getElementById("fc").value);
   const doc = document.getElementById("stock");
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
@@ -111,6 +114,9 @@ const calcular = () => {
 const matrizRelacional = () => {
   const doc = document.getElementById("stock");
   const fc = matriz.length;
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
@@ -150,9 +156,9 @@ const generarMatriz = () => {
     document.getElementById("messageValid2").innerHTML = "SI SE PUDO GENERAR LA MATRIZ";
   }
   const text = document.getElementById("expression7").value;
-  //vector = generarVector();
-  matriz = [];
   const n = vector.length;
+  matriz = [];
+  //vector = generarVector();
   for (let i = 0; i < n; ++i) {
     matriz.push([]);
   }
@@ -174,9 +180,12 @@ const generarMatriz = () => {
     }
   }
   const doc = document.getElementById("stock");
-  doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
+  doc.innerHTML = "";
+  if (fc >= 21) {
+    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
+  }
   for (let i = 0; i < n + 1; ++i) {
     doc.innerHTML += `<div>`
     for (let j = 0; j < n + 1; ++j) {
@@ -257,8 +266,8 @@ const generarVector = () => {
       vector.push(i);
     }
   }
-  mostrar.innerHTML = "";
   title.innerHTML = "Estos son los valores que cumplen la condición anterior"
+  mostrar.innerHTML = "";
   for (let i = 0; i < vector.length - 1; ++i) {
     mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[i]}},</p>`
   }
