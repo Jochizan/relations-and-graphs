@@ -109,17 +109,16 @@ const generateGraph = () => {
   if (matriz.length >= 30) {
     return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
   }
-  console.log(matriz);
   const paths = document.getElementById("myPaths");
+  const fc = parseInt(document.getElementById("fc").value);
   const names = [];
-  if (!matriz.length || !vector.length) {
-    const fc = parseInt(document.getElementById("fc").value);
-    const texts = [];
+  const texts = [];
+  if (!matriz.length) {
     let k = 0;
     let l = 0;
+    paths.innerHTML = "";
     for (let i = 1; i < fc + 1; ++i) {
       texts.push(document.getElementById(`val${i}`).value);
-      console.log(texts[i]);
     }
     for (let i = 0; i < fc; ++i) {
       matriz.push([]);
@@ -127,10 +126,13 @@ const generateGraph = () => {
     for (let i = 0; i < fc * fc; ++i) {
       matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
       k++;
-      if (k == fc) {
+      if (k === fc) {
         k = 0;
         l++;
       }
+    }
+    for (let i = 0; i < fc; ++i) {
+      names.push("" + (i + 1));
     }
     const nodeDataArray = [];
     for (let i = 0; i < names.length; i++) {
@@ -140,29 +142,33 @@ const generateGraph = () => {
     let num = nodeDataArray.length;
     for (let i = 0; i < num; i++) {
       for (let j = 0; j < num; j++) {
-        let a = names[i], b = names[j];
         if (matriz[i][j] === 1) {
-          linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
         }
       }
     }
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   } else {
     const n = matriz.length;
+    const vn = vector.length;
     paths.innerHTML = "";
     for (let i = 0; i < n; ++i) {
       names.push("" + (i + 1));
     }
+    for (let i = 1; i < fc + 1; ++i) {
+      texts.push(document.getElementById(`val${i}`).value);
+    }
+    console.log(texts);
+    console.log(vector);
     const nodeDataArray = [];
     for (let i = 0; i < n; i++) {
-      nodeDataArray.push({ key: names[i], text: vector[i], color: go.Brush.randomColor(128, 240) });
+      nodeDataArray.push({ key: names[i], text: (vn ? vector[i] : texts[i]), color: go.Brush.randomColor(128, 240) });
     }
     const linkDataArray = [];
     for (let i = 0; i < n; i++) {
       for (let j = 0; j < n; j++) {
-        let a = names[i], b = names[j];
         if (matriz[i][j] === 1) {
-          linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
         }
       }
     }
@@ -176,11 +182,11 @@ const chooseTwoNodes = () => {
   let num = myDiagram.model.nodeDataArray.length;
   let node1 = null;
   let node2 = null;
-  for (let i = Math.floor(Math.random()*num); i < num*2; i++) {
+  for (let i = Math.floor(Math.random() * num); i < num * 2; i++) {
     node1 = myDiagram.findNodeForKey(i%num);
     let distances = findDistances(node1);
-    for (let j = Math.floor(Math.random()*num); j < num*2; j++) {
-      node2 = myDiagram.findNodeForKey(j%num);
+    for (let j = Math.floor(Math.random() * num); j < num * 2; j++) {
+      node2 = myDiagram.findNodeForKey(j % num);
       let dist = distances.get(node2);
       if (dist > 1 && dist < Infinity) {
         node1.isSelected = true;
@@ -279,7 +285,9 @@ const highlightPath = (path) => {
   for (let i = 0; i < path.count - 1; i++) {
     let f = path.get(i);
     let t = path.get(i + 1);
-    f.findLinksTo(t).each((l) => { l.isHighlighted = true; });
+    f.findLinksTo(t).each((l) => {
+      l.isHighlighted = true; 
+    });
   }
 }
 
@@ -392,7 +400,8 @@ const collectAllPaths = (begin, end) => {
   let coll = new go.List(/*go.List*/);
   const find = (source, end) => {
     source.findNodesOutOf().each((n) => {
-      if (n === source) return;  // ignore reflexive links
+      if (n === source) 
+        return;  // ignore reflexive links
       if (n === end) {  // success
         let path = stack.copy();
         path.add(end);  // finish the path at the end node

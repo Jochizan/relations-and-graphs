@@ -54,5 +54,5 @@ const validateExpresionS = () => {
   const textN = document.getElementById("expression3").value;
   return textN.match(/[^+[>()-]+/g).filter((x) => {
     return !/^{.+?}$/.test(x) 
-  })
+  });
 }

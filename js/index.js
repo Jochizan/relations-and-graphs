@@ -18,14 +18,14 @@ const crearArray = () => {
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val">n`;
+          doc.innerHTML += `<input id="vals" class="inputs-array" value="n">`;
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val">${range}`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="cx-val">${range}`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
         }
         val++;
         range++;
@@ -39,31 +39,73 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  const reflexivo1 = document.getElementById("reflexivo");
-  const irreflexivo2 = document.getElementById("irreflexivo");
-  const simetrico3 = document.getElementById("simetrica");
-  const asimetrico4 = document.getElementById("asimetrica");
-  const antisimetrico5 = document.getElementById("antisimetrica");
-  const transitiva6 = document.getElementById("transitiva");
-  (reflexivo(matriz))
-    ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
-    : reflexivo1.innerHTML = "NO ES REFLEXIVO";
-  (irreflexivo(matriz))
-    ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
-    : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
-  (simetrica(matriz))
-    ? simetrico3.innerHTML = "SI ES SIMETRICA"
-    : simetrico3.innerHTML = "NO ES SIMETRICA";
-  (asimetrica(matriz))
-    ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
-    : asimetrico4.innerHTML = "NO ES ASIMETRICA";
-  (antisimetrica(matriz))
-    ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
-    : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
-  (transitiva(matriz))
-    ? transitiva6.innerHTML = "SI ES TRANSITIVA"
-    : transitiva6.innerHTML = "NO ES TRANSITIVA";
-  console.log(matriz);
+  if (!matriz.length) {
+    const fc = document.getElementById("fc").value;
+    let k = 0;
+    let l = 0;
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      k++;
+      if (k == fc) {
+        k = 0;
+        l++;
+      }
+    }
+    const reflexivo1 = document.getElementById("reflexivo");
+    const irreflexivo2 = document.getElementById("irreflexivo");
+    const simetrico3 = document.getElementById("simetrica");
+    const asimetrico4 = document.getElementById("asimetrica");
+    const antisimetrico5 = document.getElementById("antisimetrica");
+    const transitiva6 = document.getElementById("transitiva");
+    (reflexivo(matriz))
+      ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
+      : reflexivo1.innerHTML = "NO ES REFLEXIVO";
+    (irreflexivo(matriz))
+      ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
+      : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
+    (simetrica(matriz))
+      ? simetrico3.innerHTML = "SI ES SIMETRICA"
+      : simetrico3.innerHTML = "NO ES SIMETRICA";
+    (asimetrica(matriz))
+      ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
+      : asimetrico4.innerHTML = "NO ES ASIMETRICA";
+    (antisimetrica(matriz))
+      ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
+      : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
+    (transitiva(matriz))
+      ? transitiva6.innerHTML = "SI ES TRANSITIVA"
+      : transitiva6.innerHTML = "NO ES TRANSITIVA";
+    console.log(matriz);
+  } else {
+    const reflexivo1 = document.getElementById("reflexivo");
+    const irreflexivo2 = document.getElementById("irreflexivo");
+    const simetrico3 = document.getElementById("simetrica");
+    const asimetrico4 = document.getElementById("asimetrica");
+    const antisimetrico5 = document.getElementById("antisimetrica");
+    const transitiva6 = document.getElementById("transitiva");
+    (reflexivo(matriz))
+      ? reflexivo1.innerHTML = "SI ES REFLEXIVO"
+      : reflexivo1.innerHTML = "NO ES REFLEXIVO";
+    (irreflexivo(matriz))
+      ? irreflexivo2.innerHTML = "SI ES IRREFLEXIVO"
+      : irreflexivo2.innerHTML = "NO ES IRREFLEXIVO";
+    (simetrica(matriz))
+      ? simetrico3.innerHTML = "SI ES SIMETRICA"
+      : simetrico3.innerHTML = "NO ES SIMETRICA";
+    (asimetrica(matriz))
+      ? asimetrico4.innerHTML = "SI ES ASIMETRICA"
+      : asimetrico4.innerHTML = "NO ES ASIMETRICA";
+    (antisimetrica(matriz))
+      ? antisimetrico5.innerHTML = "SI ES ANTISIMETRICA"
+      : antisimetrico5.innerHTML = "NO ES ANTISIMETRICA";
+    (transitiva(matriz))
+      ? transitiva6.innerHTML = "SI ES TRANSITIVA"
+      : transitiva6.innerHTML = "NO ES TRANSITIVA";
+    console.log(matriz);
+  }
 }
 
 const matrizRelacional = () => {
@@ -143,14 +185,14 @@ const generarMatriz = () => {
         numInputs++;
       } else {
         if (i === 0 && j === 0) {
-          doc.innerHTML += `<input id="val${0}" class="fx-val" value="n">`;
+          doc.innerHTML += `<input id="val${0}" class="inputs-array" value="n">`;
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="fx-val" value="${vector[i-1]}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[i-1]}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="cx-val" value="${vector[j-1]}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[j-1]}">`;
         }
         val++;
       }
