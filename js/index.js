@@ -75,24 +75,6 @@ const calcular = () => {
   (transitiva(matriz))
     ? transitiva6.innerHTML = "SI ES TRANSITIVA"
     : transitiva6.innerHTML = "NO ES TRANSITIVA";
-  (reflexivo(matriz))
-    ? console.log("La matriz SI es reflexiva")
-    : console.log("La matriz NO es reflexiva");
-  (irreflexivo(matriz))
-    ? console.log("La matriz SI es irreflexiva")
-    : console.log("La matriz NO es irreflexiva");
-  (simetrica(matriz))
-    ? console.log("La matriz SI es simetrica")
-    : console.log("La matriz NO es simetrica");
-  (asimetrica(matriz))
-    ? console.log("La matriz SI es asimetrica")
-    : console.log("La matriz NO es asimetrica");
-  (antisimetrica(matriz))
-    ? console.log("La matriz SI es antisimetrica")
-    : console.log("LA matriz NO es antisimetrica");
-  (transitiva(matriz))
-    ? console.log("La matriz SI es transitiva")
-    : console.log("La matriz NO es transitiva");
   console.log(matriz);
 }
 
@@ -132,11 +114,17 @@ const matrizRelacional = () => {
   }
 }
 
+const generarMatriz = () => {
+  
+}
+
 const generarVector = () => {
   if (!validateFirst()) {
     return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR LA MATRIZ";
   }
   const vector = [];
+  const mostrar = document.getElementById("expression-preview-ruler")
+  const title = document.getElementById("title-expression")
   const text = document.getElementById("expression3").value;
   const value1 = document.getElementById("expression1").value;
   const value2 = document.getElementById("expression5").value;
@@ -146,39 +134,55 @@ const generarVector = () => {
   const solve2 = value2 + " = "+ text;
   const solution1 = nerdamer.solve(solve1, 'x');
   const solution2 = nerdamer.solve(solve2, 'x');
-  const principio = solution1.symbol.elements[0].multiplier.num.value /
+  let principio = solution1.symbol.elements[0].multiplier.num.value /
     solution1.symbol.elements[0].multiplier.den.value;
-  const final = solution2.symbol.elements[0].multiplier.num.value /
+  let final = solution2.symbol.elements[0].multiplier.num.value /
     solution2.symbol.elements[0].multiplier.den.value;
   if (condition1 === "<=" && condition2 === "<=") {
-    console.log(principio, final);
     for (let i = Math.ceil(principio); i <= Math.floor(final); ++i) {
-      console.log(Math.ceil(principio), final);
       vector.push(i);
     }
   } else if (condition1 === "<=" && condition2 === "<") {
     let ok = (Math.floor(final) === final);
-    for (let i = Math.ceil(principio); ok ? i < final : i < final + 1; ++i) {
+    if(!ok)
+      final = Math.ceil(final)
+    for (let i = Math.ceil(principio); i < final; ++i) {
       vector.push(i);
     }
   } else if (condition1 === "<" && condition2 === "<=") {
     let ok = (Math.floor(principio) === principio)
-    for (let i = (ok ? principio + 1 : principio); i <= Math.floor(final); ++i) {
+    if(!ok)
+      principio = Math.ceil(principio)
+    else
+      principio++;
+    for (let i = principio; i <= Math.floor(final); ++i) {
       vector.push(i);
     }
   } else {
     let ok = (Math.floor(final) === final);
-    let ans = (Math.floor(principio) === principio)
-    for (let i = (ans ? principio + 1 : principio); ok ? i < final : i < final + 1; ++i) {
+    let ans = (Math.floor(principio) === principio);
+    if(!ok)
+      final = Math.ceil(final);
+    if(!ans)
+      principio = Math.ceil(principio)
+    else
+      principio++;
+    for (let i = principio; i < final; ++i) {
       vector.push(i);
     }
   }
+  mostrar.innerHTML = "";
+  title.innerHTML = "Estos son los valores que cumplen la condición anterior"
+  for (let i = 0; i < vector.length - 1; ++i) {
+    mostrar.innerHTML += `<p style="font-size: 3.2rem;">${vector[i]},</p>`
+  }
+  mostrar.innerHTML += `<p style="font-size: 3.2rem;">${vector[vector.length - 1]}</p>`
   console.log(vector);
   return vector;
 }
 
 const reflexivo = (matriz=[]) => {
-  if (matriz === []) {
+  if (matriz.length === 0) {
     console.error("Error no puede ingresar una matriz nula");
   }
   let fc = matriz.length;
