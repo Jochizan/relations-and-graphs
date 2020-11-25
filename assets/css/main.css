@@ -86,24 +86,36 @@ canvas {
 
 .fx-val {
   display: inline;
-  padding: auto;
+  margin: 1.7rem;
   height: 4.0rem;
   width: 4.0rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 .cx-val {
   display: inline;
-  padding: auto;
+  margin: 1.55rem;
   height: 4.0rem;
   width: 4.0rem;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 .inputs-array {
   font-size: 1.4rem;
   height: 4.0rem;
   width: 4.0rem;
+}
+
+.inputs-initial {
+  font-size: 1.6rem;
+  height: 4.2rem;
+  width: 4.2rem;
+}
+
+.input-especial {
+  font-size: 1.6rem;
+  width: 20rem;
+  height: 4.2rem;
 }
 
 #clock{

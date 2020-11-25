@@ -88,7 +88,7 @@ const generateGraphAleatory = () => {
   const names = [
     "Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
     "Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
-    "Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
+    "Joan", "Estefany", "Piero", "Aldair", "Nicol", "Paul", "José"
   ];
   const nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
@@ -106,14 +106,17 @@ const generateGraphAleatory = () => {
 
 // Create an assign a model that Array values.
 const generateGraph = () => {
-  let fc = parseInt(document.getElementById("fc").value);
-  let paths = document.getElementById("myPaths");
-  paths.innerHTML = "";
+  const fc = parseInt(document.getElementById("fc").value);
+  if (fc >= 30) {
+    return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
+  }
+  const paths = document.getElementById("myPaths");
   const names = [];
   const matriz = [];
   const texts = [];
   let k = 0;
   let l = 0;
+  paths.innerHTML = "";
   for (let i = 1; i < fc + 1; ++i) {
     texts.push(document.getElementById(`val${i}`).value);
     console.log(texts[i-1]);
