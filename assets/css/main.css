@@ -85,31 +85,31 @@ canvas {
 }
 
 .fx-val {
-  display: inline;
+  font-size: 1.6rem;
   margin: 1.7rem;
   height: 4.0rem;
   width: 4.0rem;
-  font-size: 1.6rem;
+  display: inline;
 }
 
 .cx-val {
-  display: inline;
-  margin: 1.55rem;
-  height: 4.0rem;
-  width: 4.0rem;
   font-size: 1.6rem;
+  margin: 1.55rem;
+  width: 4.0rem;
+  height: 4.0rem;
+  display: inline;
 }
 
 .inputs-array {
   font-size: 1.4rem;
-  height: 4.0rem;
   width: 4.0rem;
+  height: 4.0rem;
 }
 
 .inputs-initial {
   font-size: 1.6rem;
+  width: 4rem;
   height: 4.2rem;
-  width: 4.2rem;
 }
 
 .input-especial {
@@ -118,7 +118,13 @@ canvas {
   height: 4.2rem;
 }
 
-#clock{
+.inputs-values {
+  font-size: 1.6rem;
+  width: 8rem;
+  height: 4.2rem;
+}
+
+#clock {
   background-color: #333;
   font-family: sans-serif;
   font-size: 2.2rem;
@@ -144,7 +150,7 @@ canvas {
 }
 
 
-footer{
+footer {
   float: left;
   width: 100%;
   background: #202020;
@@ -152,7 +158,7 @@ footer{
 
 }
 
-.container-footer-all{
+.container-footer-all {
   display: flex;
   width: 100%;
   max-width: 1200px;
@@ -160,17 +166,17 @@ footer{
   padding: 40px;
 }
 
-.container-body{
+.container-body {
   display: flex;
   justify-content: space-between;
 }
 
-.colum1{
+.colum1 {
   max-width: 33%;
 
 }
 
-.colum1 h1{
+.colum1 h1 {
   font-size: 22px;
 }
 
@@ -180,16 +186,15 @@ footer{
   margin-top: 20px;
 }
 
-.colum2{
+.colum2 {
   max-width: 33%;
-
 }
 
-.colum2 h1{
+.colum2 h1 {
   font-size: 22px;
 }
 
-.row{
+.row {
   margin-top: 20px;
   display: flex;
 }
@@ -261,15 +266,12 @@ footer{
 
 
 @media screen and (max-width: 1100px){
-
   .container-body{
     flex-wrap: wrap;
   }
-
   .colum1{
     max-width: 100%;
   }
-
   .colum2,
   .colum3{
     margin-top: 50px;

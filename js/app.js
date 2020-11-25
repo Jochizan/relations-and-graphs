@@ -106,50 +106,68 @@ const generateGraphAleatory = () => {
 
 // Create an assign a model that Array values.
 const generateGraph = () => {
-  const fc = parseInt(document.getElementById("fc").value);
-  if (fc >= 30) {
+  if (matriz.length >= 30) {
     return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
   }
+  console.log(matriz);
   const paths = document.getElementById("myPaths");
   const names = [];
-  const matriz = [];
-  const texts = [];
-  let k = 0;
-  let l = 0;
-  paths.innerHTML = "";
-  for (let i = 1; i < fc + 1; ++i) {
-    texts.push(document.getElementById(`val${i}`).value);
-    console.log(texts[i-1]);
-  }
-  for (let i = 0; i < fc; ++i) {
-    matriz.push([]);
-  }
-  for (let i = 0; i < fc * fc; ++i) {
-    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-    k++;
-    if (k == fc) {
-      k = 0;
-      l++;
+  if (!matriz.length || !vector.length) {
+    const fc = parseInt(document.getElementById("fc").value);
+    const texts = [];
+    let k = 0;
+    let l = 0;
+    for (let i = 1; i < fc + 1; ++i) {
+      texts.push(document.getElementById(`val${i}`).value);
+      console.log(texts[i]);
     }
-  }
-  for (let i = 0; i < fc; ++i) {
-    names.push("" + (i + 1));
-  }
-  const nodeDataArray = [];
-  for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
-  }
-  const linkDataArray = [];
-  let num = nodeDataArray.length;
-  for (let i = 0; i < num; i++) {
-    for (let j = 0; j < num; j++) {
-      let a = names[i], b = names[j];
-      if (matriz[i][j] === 1) {
-        linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      k++;
+      if (k == fc) {
+        k = 0;
+        l++;
       }
     }
+    const nodeDataArray = [];
+    for (let i = 0; i < names.length; i++) {
+      nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
+    }
+    const linkDataArray = [];
+    let num = nodeDataArray.length;
+    for (let i = 0; i < num; i++) {
+      for (let j = 0; j < num; j++) {
+        let a = names[i], b = names[j];
+        if (matriz[i][j] === 1) {
+          linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+        }
+      }
+    }
+    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+  } else {
+    const n = matriz.length;
+    paths.innerHTML = "";
+    for (let i = 0; i < n; ++i) {
+      names.push("" + (i + 1));
+    }
+    const nodeDataArray = [];
+    for (let i = 0; i < n; i++) {
+      nodeDataArray.push({ key: names[i], text: vector[i], color: go.Brush.randomColor(128, 240) });
+    }
+    const linkDataArray = [];
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        let a = names[i], b = names[j];
+        if (matriz[i][j] === 1) {
+          linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+        }
+      }
+    }
+    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   }
-  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
 
 // Select two nodes at random for which there is a path that connects from the first one to the second one.
