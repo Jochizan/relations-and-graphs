@@ -46,41 +46,49 @@ const calcular = () => {
   let fc = 0;
   let j = 1;
   matriz = [];
+  const messages = document.getElementById("messages-important");
   while (document.getElementById(`val${j}`) !== null) {
     fc++;
     j++;
+  }
+  if (fc < 1) {
+    document.getElementById("messages-important").innerHTML = "NO PODEMOS EVALUAR MATRICES NULAS";
+    return console.error("Error no puede mandar matrices nulas");
   }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
   for (let i = 0; i < fc * fc; ++i) {
-    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    } else {
+      return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
+    }
     k++;
     if (k == fc) {
       k = 0;
       l++;
     }
   }
-  const messages = document.getElementById("messages-important");
   messages.innerHTML = "";
   (reflexivo(matriz))
-    ? messages.innerHTML += "<p>SI ES REFLEXIVO</p>"
-    : messages.innerHTML += "<p>NO ES REFLEXIVO</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES REFLEXIVO</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES REFLEXIVO</p>`;
   (irreflexivo(matriz))
-    ? messages.innerHTML += "<p>SI ES IRREFLEXIVO</p>"
-    : messages.innerHTML += "<p>NO ES IRREFLEXIVO</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES IRREFLEXIVO</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES IRREFLEXIVO</p>`;
   (simetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES SIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES SIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES SIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES SIMETRICA</p>`;
   (asimetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES ASIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES ASIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES ASIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES ASIMETRICA</p>`;
   (antisimetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES ANTISIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES ANTISIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES ANTISIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES ANTISIMETRICA</p>`;
   (transitiva(matriz))
-    ? messages.innerHTML += "<p>SI ES TRANSITIVA</p>"
-    : messages.innerHTML += "<p>NO ES TRANSITIVA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES TRANSITIVA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES TRANSITIVA</p>`;
   console.log(matriz);
 }
 
@@ -99,34 +107,51 @@ const generarMatriz = () => {
   for (let i = 0; i < n; ++i) {
     matriz.push([]);
   }
-  for (let i = 0; i < n; ++i) {
-    for (let j = 0; j < n; ++j) {
+  if (condition2 === "=") {
+    for (let i = 0; i < n; ++i) {
       const x = "x=" + vector[i];
       const solution = nerdamer.solveEquations([text, x]);
       let relacion = 0;
-      console.log(solution);
-      if (condition2 === ">") {
-        if (solution[1][1] < vector[j]) {
-          relacion = 1;
-        }
-      } else if (condition2 === ">=") {
-        if (solution[1][1] <= vector[j]) {
-          relacion = 1;
-        }
-      } else if (condition2 === "=") {
+      if (solution[0][1] <= vector[n - 1] && solution[0][1] >= vector[0]) {
         if (solution[1][1] <= vector[n - 1] && solution[1][1] >= vector[0]) {
           relacion = 1;
         }
-      } else if (condition2 === "<") {
-        if (solution[1][1] > vector[j]) {
-          relacion = 1;
-        }
-      } else {
-        if (solution[1][1] >= vector[j]) {
-          relacion = 1;
+      }
+      for (let j = 0; j < n; ++j) {
+        if (vector[j] === solution[1][1]) {
+          matriz[i][j] = relacion;
+        } else {
+          matriz[i][j] = 0;
         }
       }
-      matriz[i][j] = relacion;
+    }
+  } else {
+    for (let i = 0; i < n; ++i) {
+      for (let j = 0; j < n; ++j) {
+        console.log(vector);
+        const x = "x=" + vector[i];
+        const solution = nerdamer.solveEquations([text, x]);
+        let relacion = 0;
+        console.log(solution);
+        if (condition2 === ">") {
+          if (solution[1][1] < vector[j]) {
+            relacion = 1;
+          }
+        } else if (condition2 === ">=") {
+          if (solution[1][1] <= vector[j]) {
+            relacion = 1;
+          }
+        } else if (condition2 === "<") {
+          if (solution[1][1] > vector[j]) {
+            relacion = 1;
+          }
+        } else {
+          if (solution[1][1] >= vector[j]) {
+            relacion = 1;
+          }
+        }
+        matriz[i][j] = relacion;
+      }
     }
   }
   const doc = document.getElementById("stock");
@@ -197,7 +222,8 @@ const generarVector = () => {
     for (let i = Math.ceil(principio); i < final; ++i) {
       vector.push(i);
     }
-  } else if (condition1 === "<" && condition2 === "<=") { let ok = (Math.floor(principio) === principio)
+  } else if (condition1 === "<" && condition2 === "<=") {
+    let ok = (Math.floor(principio) === principio)
     if(!ok)
       principio = Math.ceil(principio)
     else
