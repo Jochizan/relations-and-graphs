@@ -85,44 +85,6 @@ const calcular = () => {
   console.log(matriz);
 }
 
-const matrizRelacional = () => {
-  const doc = document.getElementById("stock");
-  const fc = matriz.length;
-  if (fc >= 21) {
-    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
-  }
-  doc.innerHTML = "";
-  let numInputs = 1;
-  let val = 1;
-  let range = 1;
-  for (let i = 0; i < fc + 1; ++i) {
-    doc.innerHTML += `<div>`
-    for (let j = 0; j < fc + 1; ++j) {
-      if (i !== 0 && j !== 0) {
-        doc.innerHTML += `<input type="number" id="input${numInputs}" min="0" max="1" value="${matriz[i][j]}"class="inputs-array">`
-        numInputs++;
-      } else {
-        if (i === 0 && j === 0) {
-          doc.innerHTML += `<p id="val${val}" class="fx-val">n</p>`;
-          continue;
-        }
-        if (i !== 0) {
-          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
-        }
-        if (j !== 0) {
-          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
-        }
-        val++;
-        range++;
-        if (range - 1 === fc) {
-          range = 1;
-        }
-      }
-    }
-    doc.innerHTML += `</div>`
-  }
-}
-
 const generarMatriz = () => {
   if (!validateSecond()) {
     return document.getElementById("messageValid2").innerHTML = "NO SE PUEDE GENERAR LA MATRIZ";
