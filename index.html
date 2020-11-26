@@ -191,48 +191,34 @@
         last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div id="input-area" class="d-block" align=center>
       </div>
-      <div class="d-flex justify-content-center">
-        <div class="flex-container">
+      <div class="flex-container">
+        <div class="d-flex justify-content-center" style="width: 100%; top: 0; bottom: 0; left: 0; right: 0; margin: auto;">
+          <div class="d-block" align=center>
+            <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="size" style="font-size: 1.8rem; width: 12rem;">
+            <div>
+              <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
+              <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Calcular</button>
+              <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
+              <ul id="stock" class="grafo">
+              </ul>
+            </div>
+            <div class="d-block" id="messages-important">
+            </div>
+          </div>
+        </div>
+        <div style="position: relative; top: 0; bottom: 0; left: 0; right: 0; margin: auto; margin-right: 1.6%; margin-left: 1.0%;" class="d-flex justify-content-center">
           <div class="d-flex justify-content-center">
-            <div class="d-block" align=center>
-              <input type="number" id="fc" class="form-control mr-sm-2" min="1" placeholder="size" style="font-size: 1.8rem; width: 12rem;">
-              <div>
-                <button onclick="crearArray()" type="button" class="btn btn-primary" style="font-size: 1.8rem; margin: 0.5rem;">Crear</button>
-                <button onclick="calcular()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 0.5rem;">Calcular</button>
-                <button onclick="generateGraph()" type="button" class="btn btn-info" style="font-size: 1.8rem; margin: 0.5rem;">Dibujar</button>
-                <ul id="stock" class="grafo">
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="d-block">
-            <p id="reflexivo"></p>
-            <p id="irreflexivo"></p>
-            <p id="simetrica"></p>
-            <p id="asimetrica"></p>
-            <p id="antisimetrica"></p>
-            <p id="transitiva"></p>
-          </div>
-          <div style="position: relative;">
-            <div class="d-flex justify-content-center">
-              <div class="justify-content-center h-100">
-                <div class="card shadow" style="border: 0.5;">
-                  <div class="card-body bg-dark">
-                    <h1 class="" style="font-size: 1.8rem; color: white;" align=center>Grafo</h1>
-                    <div class="d-flex justify-content-center">
-                      <div id="myDiagramDiv"  style="border: 0.2rem solid white; background: white; width: 50rem; height: 50rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-                        <canvas id="canvas" tabindex="0" width="50rem" height="50rem" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;" >This text is displayed if your browser does not support the Canvas HTML element.
-                        </canvas>
-                          <div style="position: absolute; overflow: auto; width: 60.0rem; height: 70.0rem; z-index: 1;">
-                            <div style="position: absolute; width: 50rem; height: 50rem;">
-                            </div>
-                          </div>
-                      </div>
+            <div class="justify-content-center h-100">
+              <div class="card shadow">
+                <div class="card-body bg-dark">
+                  <h1 class="" style="font-size: 1.8rem; color: white;" align=center>Representación en Grafo</h1>
+                    <div id="myDiagramDiv"  style="border: 0.2rem solid white; background: white; width: 50rem; height: 50rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
+                      <canvas id="canvas" tabindex="0" width="50rem" height="50rem" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;" >This text is displayed if your browser does not support the Canvas HTML element.
+                      </canvas>
                     </div>
-                  </div>
                 </div>
-              </div>  
-            </div>
+              </div>
+            </div>  
           </div>
         </div>
       </div>
@@ -326,7 +312,6 @@
     <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Calculus.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/nerdamer@latest/Solve.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/time.js"></script>
     <script src="js/app.js"></script>
     <script src="js/expReg.js"></script>
   </body>
