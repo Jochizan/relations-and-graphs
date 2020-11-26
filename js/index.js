@@ -237,8 +237,6 @@ const reflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const irreflexivo = (matriz=[]) => {
@@ -253,8 +251,6 @@ const irreflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const simetrica = (matriz=[]) => {
@@ -274,36 +270,42 @@ const simetrica = (matriz=[]) => {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  return ok
 }
 
 const asimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es asimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // llamamos la función irreflexivo para saber si existen valores en la diagonal diferentes de 0
   if (!irreflexivo(matriz)) {
     return !ok;
   }
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores si la matriz no considere los valores 0 en ambos lados
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir 
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  // retornamos el valor de ok que define si es simetrica o no
+  return ok
 }
 
 const antisimetrica = (matriz=[]) => {
@@ -325,9 +327,7 @@ const antisimetrica = (matriz=[]) => {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  return ok
 }
 
 const transitiva = (matriz=[]) => {
@@ -354,7 +354,5 @@ const transitiva = (matriz=[]) => {
       break;
     }
   }
-  return (transitividad)
-    ? true
-    : false;
+  return transitividad;
 }
