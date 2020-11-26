@@ -164,9 +164,9 @@ const generarMatriz = () => {
 
 const generarVector = () => {
   if (!validateFirst()) {
-    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR LA VECTOR";
+    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR EL VECTOR";
   } else {
-    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR LA VECTOR";
+    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR EL VECTOR";
   }
   const mostrar = document.getElementById("expression-preview-ruler");
   const title = document.getElementById("title-expression")
