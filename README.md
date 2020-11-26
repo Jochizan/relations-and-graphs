@@ -4,9 +4,9 @@
 ### Requisitos
 
 - Ir al sitio oficial de GoJS y descargar los releases de la pagina
-de recoemendación la versión más reciente. Descarga aquí [GoJs](https://gojs.net/latest/download.html) 
+de recoemendación la versión más reciente. 
 
-####Javascript para generar matriz
+- Descarga aquí [GoJs](https://gojs.net/latest/download.html)
 
 ```javascript
 const generarMatriz = () => {
@@ -92,12 +92,11 @@ const generarMatriz = () => {
 ![fotoCodigo2](./img/screenCoding2.png)
 
 ### Autores:
+- Roca Hormaza Joan 🧡
 - Fabian Sinti Estefany💙
 - Medrano Quispe Samuel💚
 - Muñoz Ingaruca Piero💛
-- Roca Hormaza Joan 🧡
 
 ## 😎😎😎😎😎😎😎😎😎😎😎[💙](https://github.com/Johan769)
 
-```
-###End
+### End
