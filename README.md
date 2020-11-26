@@ -4,8 +4,7 @@
 ### Requisitos
 
 - Ir al sitio oficial de GoJS y descargar los releases de la pagina
-de recoemendación la versión más reciente.
-####Descarga aquí [GoJs](https://gojs.net/latest/download.html) 
+de recoemendación la versión más reciente. Descarga aquí [GoJs](https://gojs.net/latest/download.html) 
 
 ####Javascript para generar matriz
 
@@ -100,4 +99,5 @@ const generarMatriz = () => {
 
 ## 😎😎😎😎😎😎😎😎😎😎😎[💙](https://github.com/Johan769)
 
+```
 ###End
