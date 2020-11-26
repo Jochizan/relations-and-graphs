@@ -117,6 +117,7 @@ const generateGraph = () => {
   const texts = [];
   if (!matriz.length) {
     paths.innerHTML = "";
+    matriz = [];
     for (let i = 1; i < fc + 1; ++i) {
       texts.push(document.getElementById(`val${i}`).value);
     }
@@ -149,30 +150,45 @@ const generateGraph = () => {
     }
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
   } else {
-    matriz = [];
-    paths.innerHTML = "";
-    for (let i = 1; i < fc + 1; ++i) {
-      texts.push(document.getElementById(`val${i}`).value);
-    }
-    for (let i = 0; i < fc; ++i) {
-      matriz.push([]);
-    }
-    for (let i = 0; i < fc * fc; ++i) {
-      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-      k++;
-      if (k === fc) {
-        k = 0;
-        l++;
-      }
-    }
     const n = matriz.length;
     const vn = vector.length;
     paths.innerHTML = "";
+    matriz = [];
+    if (fc > 0) {
+      for (let i = 1; i < fc + 1; ++i) {
+        texts.push(document.getElementById(`val${i}`).value);
+      }
+      for (let i = 0; i < fc; ++i) {
+        matriz.push([]);
+      }
+      for (let i = 0; i < fc * fc; ++i) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+        console.log(matriz[l][k]);
+        k++;
+        if (k === fc) {
+          k = 0;
+          l++;
+        }
+      }
+    } else {
+      for (let i = 1; i < n + 1; ++i) {
+        texts.push(document.getElementById(`val${i}`).value);
+      }
+      for (let i = 0; i < n; ++i) {
+        matriz.push([]);
+      }
+      for (let i = 0; i < n * n; ++i) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+        console.log(matriz[l][k]);
+        k++;
+        if (k === n) {
+          k = 0;
+          l++;
+        }
+      }
+    }
     for (let i = 0; i < n; ++i) {
       names.push("" + (i + 1));
-    }
-    for (let i = 1; i < fc + 1; ++i) {
-      texts.push(document.getElementById(`val${i}`).value);
     }
     console.log(texts);
     console.log(vector);
@@ -189,6 +205,7 @@ const generateGraph = () => {
       }
     }
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+    console.log("Que rica Grafica 💕🖤🤎💜💙💚💛🧡");
   }
 }
 
