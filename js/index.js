@@ -13,7 +13,6 @@ const crearArray = () => {
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
-  let range = 1;
   for (let i = 0; i < fc + 1; ++i) {
     doc.innerHTML += `<div>`
     for (let j = 0; j < fc + 1; ++j) {
@@ -26,15 +25,14 @@ const crearArray = () => {
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         val++;
-        range++;
-        if (range - 1 === fc) {
-          range = 1;
+        if (val - 1 === fc) {
+          val = 1;
         }
       }
     }
@@ -43,14 +41,15 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  const mfc = document.getElementById("fc").value;
-  let k = 0;
   let l = 0;
+  let k = 0;
   let fc = 0;
-  (mfc > 0)
-    ? fc = mfc
-    : fc = matriz.length;
+  let j = 1;
   matriz = [];
+  while (document.getElementById(`val${j}`) !== null) {
+    fc++;
+    j++;
+  }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
@@ -155,6 +154,9 @@ const generarMatriz = () => {
           doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[j-1]}">`;
         }
         val++;
+        if (val === n + 1) {
+          val = 1;
+        }
       }
     }
     doc.innerHTML += `</div>`
@@ -363,7 +365,7 @@ const transitiva = (matriz=[]) => {
           }
         }
       }
-    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
+      // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
       if (!transitividad) {
         break;
       }
