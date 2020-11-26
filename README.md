@@ -110,7 +110,7 @@ const generarMatriz = () => {
 
 ### Versión Actual de graficación
 
-![fotoCodigo2](./img/screenCoding2.png)
+![fotoCodigo2](./img/screenCoding.png)
 
 ### Autores:
 - Roca Hormaza Joan 🧡

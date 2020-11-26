@@ -203,7 +203,7 @@ const generateGraph = () => {
       }
     }
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-    console.log("Que rica Grafica 💕🖤🤎💜💙💚💛🧡");
+    console.log("Que rica gráfica 💕🖤🤎💜💙💚💛🧡");
   }
 }
 
