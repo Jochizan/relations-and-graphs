@@ -19,7 +19,7 @@
   </head>
   <body onload="init()">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="font-size: 1.6rem; border-radius: 0;">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="font-size: 1.6rem; border-radius: 0;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,20 +42,18 @@
     </header>
     <main>
       <hr class="my-4">
+      <div class="code"><b style="color: red; font-size: 1.8rem;"># Ejemplos de Relaciones</b>
+  { x ϵ Z+ / min < ecuación<i>...</i>< max }
+      </div>
       <div id="input-area" class="d-block" align=center>
         <h3 id="prompt">
           <label for="expression">
-            <span id="normal-prompt">Calcula la relación de …</span>
-            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+            <span id="normal-prompt">Calcular los valores que cumplen la relacion dada...</span>
           </label>
         </h3>
         <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
         <form id="expression-form" action="" onsubmit="return stillLoading();">
           <fieldset>
-            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
-              <img id="keyboard-show" src="">
-              <img id="keyboard-hide" src="">
-            </a>
             <div id="d-flex justify-content-center">
               <input id="expression1" class="inputs-values" type="number" placeholder="mayor a" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
               <input id="expression2" class="inputs-initial" type="text" placeholder="signo" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
@@ -64,131 +62,41 @@
               <input id="expression5" class="inputs-values" type="number" placeholder="menor a" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
             </div>
             <button onclick="generarVector()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 1.2rem; margin-bottom: 1.8rem;">Ingresar</button>
-            <div id="keyboard">
-              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
-              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
-              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
-            </div>
           </fieldset>
         </form>
-        <p id="expression-preview-header">Esto será calculado:</p>
         <p id="messageValid"></p>
         <div id="expression-preview" class="formula round">
-          <div id="main-var-unused-warning-icon" style="display: none;">
-            <a href="javascript:void 0" onclick="return stillLoading();">
-              <img src="">
-            </a>
-          </div>
           <h2 id="title-expression" align=center></h2>
           <div id="expression-preview-ruler" class="d-flex justify-content-center">
           </div>
-          <table>
-            <tbody>
-              <tr>
-                <td style="text-align: left; vertical-align: top;">
-                  <p id="loading" style="display: none;">
-                  <strong>Cargando … ¡Por favor espera!</strong>
-                  <br>Esto tomará unos segundos.
-                  </p>
-                  <div id="expression-preview-formula">
-                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
-                    </div>
-                  </div>
-                  <p id="error-message" style="display: none;">
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-        <p id="input-hint">
-        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".	</p>
       </div>
-      <div class="code"><b style="color: red;"># Ejemplos de Relaciones</b>
-        take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
-        | n <i>&lt;=</i> 0 <i>=&gt;</i> []
-        | empty list <i>=&gt;</i> []
-        | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse
+      <div class="code"><b style="color: red; font-size: 1.8rem;"># Ejemplo de Segunda Relacion</b>
+  { (x,y) ϵ A^2 / ecuación <= >= = valor}
       </div>
       <div id="input-area" class="d-block" align=center>
         <h3 id="prompt">
           <label for="expression">
-            <span id="normal-prompt">Calcula la relación de …</span>
-            <span id="check-answer-prompt" style="display: none;">Ingresa tu propia respuesta:</span>
+            <span id="normal-prompt">Calcular la matriz a partir de los valores dados...</span>
           </label>
         </h3>
         <a id="check-answer-exit" href="javascript:void 0" onclick="return stillLoading();" style="display: none;">Salir del modo "verificar respuesta"</a>
         <form id="expression-form" action="" onsubmit="return stillLoading();">
           <fieldset>
-            <a id="toggle-keyboard-button" href="javascript:void 0" onclick="return stillLoading();">
-              <img id="keyboard-show" src="">
-              <img id="keyboard-hide" src="">
-            </a>
             <div id="d-flex justify-content-center">
-              <input id="expression7" class="input-especial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression8" class="inputs-initial" type="text" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
-              <input id="expression9" class="inputs-values" type="number" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression7" class="input-especial" type="text" placeholder="ecuación" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression8" class="inputs-initial" type="text" placeholder="signo" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
+              <input id="expression9" class="inputs-values" type="number" placeholder="<= o >=" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off">
             </div>
             <button onclick="generarMatriz()" type="button" class="btn btn-success" style="font-size: 1.8rem; margin: 1.2rem; margin-bottom: 1.8rem;">Ingresar</button>
-            <div id="keyboard">
-              <a id="clear-expression-button" href="javascript:void 0" onclick="return stillLoading();" data-input="CLR"><span>CLR</span></a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="+">+</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="-">–</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="*">×</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="/">÷</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="^">^</a>
-              <a href="javascript:void 0" onclick="return stillLoading();" data-input="√" data-surround="1">√</a>
-              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input="(">(</a>
-              <a class="additional-384" href="javascript:void 0" onclick="return stillLoading();" data-input=")">)</a>
-            </div>
           </fieldset>
         </form>
-        <p id="expression-preview-header">Esto será calculado:</p>
         <p id="messageValid2"></p>
         <div id="expression-preview" class="formula round">
-          <div id="main-var-unused-warning-icon" style="display: none;">
-            <a href="javascript:void 0" onclick="return stillLoading();">
-              <img src="">
-            </a>
+          <div id="expression-preview-ruler" class="d-flex justify-content-center">
           </div>
-          <div id="expression-preview-ruler">
-          </div>
-          <table>
-            <tbody>
-              <tr>
-                <td style="text-align: left; vertical-align: top;">
-                  <p id="loading" style="display: none;">
-                  <strong>Cargando … ¡Por favor espera!</strong>
-                  <br>Esto tomará unos segundos.
-                  </p>
-                  <div id="expression-preview-formula">
-                    <div id="expression-preview-formula-mathjax-buffer" style="position: absolute; left: -10000px; top: -10000px;">
-                    </div>
-                  </div>
-                  <p id="error-message" style="display: none;">
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-        <p id="input-hint">
-        ¿No es lo que tienes en mente? <em>¡Usa paréntesis!</em> Define la variable y orden de derivación en "<em>Opciones</em>".
-        </p>
       </div>
-      <div class="code"><b style="color: red;"># Ejemplo de Segunda Relacion</b>
-        take = (n, [x, <i>...</i>xs]:list) <i>--&gt;</i>
-        | n <i>&lt;=</i> 0 <i>=&gt;</i> []
-        | empty list <i>=&gt;</i> []
-        | otherwise <i>=&gt;</i> [x] <i>++</i> take n-1, xs
-        last3 = reverse <i>&gt;&gt;</i> take 3 <i>&gt;&gt;</i> reverse</div>
       <div id="input-area" class="d-block" align=center>
       </div>
       <div class="flex-container">
@@ -212,10 +120,10 @@
               <div class="card shadow">
                 <div class="card-body bg-dark">
                   <h1 class="" style="font-size: 1.8rem; color: white;" align=center>Representación en Grafo</h1>
-                    <div id="myDiagramDiv"  style="border: 0.2rem solid white; background: white; width: 50rem; height: 50rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
-                      <canvas id="canvas" tabindex="0" width="50rem" height="50rem" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;" >This text is displayed if your browser does not support the Canvas HTML element.
-                      </canvas>
-                    </div>
+                  <div id="myDiagramDiv"  style="border: 0.2rem solid white; background: white; width: 50rem; height: 50rem; position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);">
+                    <canvas id="canvas" tabindex="0" width="50rem" height="50rem" style="position: absolute; top: 0; left: 0; z-index: 2; user-select: none; width: 100%; height: 100%;" >Este texto se muestra si su navegador no es compatible con el elemento HTML de Canvas.
+                    </canvas>
+                  </div>
                 </div>
               </div>
             </div>  
@@ -224,17 +132,17 @@
       </div>
       <hr class="my-4">
       <div style="margin-left: 1.0rem; margin-right: 1.0rem;">
-        <p>
+        <p style="font-size: 1.8rem;">
         Haga clic en un nodo para mostrar las distancias entre ese nodo y los demás.
         Haga clic en un segundo nodo para mostrar una ruta más corta desde el primer nodo al segundo nodo.
         (Tenga en cuenta que es posible que no haya ninguna ruta entre los nodos).
         Hacer clic en un tercer nodo anulará la selección de los dos primeros.
         </p>
         <p>
-        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.6rem;">Elija otros dos nodos al azar</button>
+        <button onclick="chooseTwoNodes()" class="btn btn-success" style="font-size: 1.8rem;">Elija otros dos nodos al azar</button>
         </p>
         <hr class="my-4">
-        <p>
+        <p style="font-size: 1.8rem;">
         Aquí hay una lista de todas las rutas entre el primer y segundo nodos seleccionado.
         Seleccione una ruta para resaltarla en el diagrama.
         </p>

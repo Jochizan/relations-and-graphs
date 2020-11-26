@@ -108,7 +108,7 @@ canvas {
 
 .inputs-initial {
   font-size: 1.6rem;
-  width: 4rem;
+  width: 4.2rem;
   height: 4.2rem;
 }
 
@@ -170,11 +170,13 @@ footer {
   font-family: Fira Code;
   font-feature-settings: "calt"1;
   font-weight: 600;
+  font-size: 1.7rem;
   text-rendering: optimizeLegibility;
-  width: 45rem;
   margin: 2rem auto;
   white-space: pre-wrap;
   word-break: break-all;
+  width: 45rem;
+  height: auto;
 }
 
 .container-body {

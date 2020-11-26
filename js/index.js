@@ -85,44 +85,6 @@ const calcular = () => {
   console.log(matriz);
 }
 
-const matrizRelacional = () => {
-  const doc = document.getElementById("stock");
-  const fc = matriz.length;
-  if (fc >= 21) {
-    return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
-  }
-  doc.innerHTML = "";
-  let numInputs = 1;
-  let val = 1;
-  let range = 1;
-  for (let i = 0; i < fc + 1; ++i) {
-    doc.innerHTML += `<div>`
-    for (let j = 0; j < fc + 1; ++j) {
-      if (i !== 0 && j !== 0) {
-        doc.innerHTML += `<input type="number" id="input${numInputs}" min="0" max="1" value="${matriz[i][j]}"class="inputs-array">`
-        numInputs++;
-      } else {
-        if (i === 0 && j === 0) {
-          doc.innerHTML += `<p id="val${val}" class="fx-val">n</p>`;
-          continue;
-        }
-        if (i !== 0) {
-          doc.innerHTML += `<p id="val${val}" class="fx-val">${range}</p>`;
-        }
-        if (j !== 0) {
-          doc.innerHTML += `<p id="val${val}" class="cx-val">${range}</p>`;
-        }
-        val++;
-        range++;
-        if (range - 1 === fc) {
-          range = 1;
-        }
-      }
-    }
-    doc.innerHTML += `</div>`
-  }
-}
-
 const generarMatriz = () => {
   if (!validateSecond()) {
     return document.getElementById("messageValid2").innerHTML = "NO SE PUEDE GENERAR LA MATRIZ";
@@ -172,7 +134,7 @@ const generarMatriz = () => {
   let numInputs = 1;
   let val = 1;
   doc.innerHTML = "";
-  if (fc >= 21) {
+  if (fc >= 20) {
     return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
   }
   for (let i = 0; i < n + 1; ++i) {
@@ -202,9 +164,9 @@ const generarMatriz = () => {
 
 const generarVector = () => {
   if (!validateFirst()) {
-    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR LA VECTOR";
+    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR EL VECTOR";
   } else {
-    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR LA VECTOR";
+    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR EL VECTOR";
   }
   const mostrar = document.getElementById("expression-preview-ruler");
   const title = document.getElementById("title-expression")
@@ -233,8 +195,7 @@ const generarVector = () => {
     for (let i = Math.ceil(principio); i < final; ++i) {
       vector.push(i);
     }
-  } else if (condition1 === "<" && condition2 === "<=") {
-    let ok = (Math.floor(principio) === principio)
+  } else if (condition1 === "<" && condition2 === "<=") { let ok = (Math.floor(principio) === principio)
     if(!ok)
       principio = Math.ceil(principio)
     else
@@ -258,11 +219,10 @@ const generarVector = () => {
   title.innerHTML = "Estos son los valores que cumplen la condición anterior"
   mostrar.innerHTML = "";
   for (let i = 0; i < vector.length - 1; ++i) {
-    mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[i]}},</p>`
+    mostrar.innerHTML += `<p style="font-size: 3.0rem;">{${vector[i]}},</p>`
   }
-  mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[vector.length - 1]}}</p>`
+  mostrar.innerHTML += `<p style="font-size: 3.0rem;">{${vector[vector.length - 1]}}</p>`
   console.log(vector);
-  //return vector;
 }
 
 const reflexivo = (matriz=[]) => {
