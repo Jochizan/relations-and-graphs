@@ -86,8 +86,7 @@ const init = () => {
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraphAleatory = () => {
   const names = [
-    "Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
-    "Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
+    "Alisson", "Indira", "Renato", "Luigui", "Mauricio", "Fernando", "Victoria",
     "Joan", "Estefany", "Piero", "Aldair", "Nicol", "Paul", "José"
   ];
   const nodeDataArray = [];
@@ -129,7 +128,11 @@ const generateGraph = () => {
       matriz.push([]);
     }
     for (let i = 0; i < fc * fc; ++i) {
-      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      } else {
+        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
+      }
       k++;
       if (k === fc) {
         k = 0;
@@ -157,11 +160,11 @@ const generateGraph = () => {
     const n = matriz.length;
     const vn = vector.length;
     paths.innerHTML = "";
+    console.log(matriz);
     while (document.getElementById(`val${len}`) !== null) {
       fc++;
       len++;
     }
-    console.log(matriz);
     matriz = [];
     for (let i = 1; i < fc + 1; ++i) {
       texts.push(document.getElementById(`val${i}`).value);
@@ -170,10 +173,10 @@ const generateGraph = () => {
       matriz.push([]);
     }
     for (let i = 0; i < fc * fc; ++i) {
-      if (parseInt(document.getElementById(`input${i+1}`).value) > -1) {
+      if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
         matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
       } else {
-        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓ";
+        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
       }
       k++;
       if (k === fc) {
