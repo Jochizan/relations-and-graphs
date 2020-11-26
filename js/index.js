@@ -304,7 +304,7 @@ const asimetrica = (matriz=[]) => {
       break;
     }
   }
-  // retornamos el valor de ok que define si es simetrica o no
+  // retornamos el valor de ok que define si es asimetrica o no
   return ok
 }
 
@@ -312,47 +312,67 @@ const antisimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es ansimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores de la matriz no considere los valores 0 en ambos lados
+        // y solo actue cuando los valores de la matriz sean iguales pero diferentes de 0
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir de este iterador
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return ok
+  // retornamos el valor de ok que define si es antisimetrica o no
+  return ok;
 }
 
 const transitiva = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // transitividad define si la matriz es asimetrica
   let transitividad = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if decimos que solo evaluaremos si encontramos algun 1 en la fila
       if (matriz[i][j] === 1) {
+        // con este for evaluaremos si existe un j, k === 1 && un i, k === 0 lo cual viola la transitividad
         for (let k = 0; k < n; ++k) {
           if (matriz[j][k] === 1 && matriz[i][k] === 0) {
+            // asignamos el valor de falso a transitividad
             transitividad = false;
+            // salimos del primer for
             break;
           }
         }
       }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
       if (!transitividad) {
         break;
       }
     }
+    // para finalmente salir de todos los iterdores
     if (!transitividad) {
       break;
     }
   }
+  // retornamos el valor de transitividad que define si es transitiva o no
   return transitividad;
 }
