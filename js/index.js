@@ -47,7 +47,7 @@ const calcular = () => {
   let k = 0;
   let l = 0;
   let fc = 0;
-  (mfc !== null)
+  (mfc > 0)
     ? fc = mfc
     : fc = matriz.length;
   matriz = [];
