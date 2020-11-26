@@ -111,11 +111,15 @@ const generateGraph = () => {
   }
   let k = 0;
   let l = 0;
+  let fc = 0;
+  let len = 1;
   const paths = document.getElementById("myPaths");
-  const fc = parseInt(document.getElementById("fc").value);
+  const mfc = parseInt(document.getElementById("fc").value);
   const names = [];
   const texts = [];
   if (!matriz.length) {
+    fc = mfc;
+    console.log(matriz);
     paths.innerHTML = "";
     matriz = [];
     for (let i = 1; i < fc + 1; ++i) {
@@ -153,38 +157,28 @@ const generateGraph = () => {
     const n = matriz.length;
     const vn = vector.length;
     paths.innerHTML = "";
+    while (document.getElementById(`val${len}`) !== null) {
+      fc++;
+      len++;
+    }
+    console.log(matriz);
     matriz = [];
-    if (fc > 0) {
-      for (let i = 1; i < fc + 1; ++i) {
-        texts.push(document.getElementById(`val${i}`).value);
-      }
-      for (let i = 0; i < fc; ++i) {
-        matriz.push([]);
-      }
-      for (let i = 0; i < fc * fc; ++i) {
+    for (let i = 1; i < fc + 1; ++i) {
+      texts.push(document.getElementById(`val${i}`).value);
+    }
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      if (parseInt(document.getElementById(`input${i+1}`).value) > -1) {
         matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-        console.log(matriz[l][k]);
-        k++;
-        if (k === fc) {
-          k = 0;
-          l++;
-        }
+      } else {
+        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓ";
       }
-    } else {
-      for (let i = 1; i < n + 1; ++i) {
-        texts.push(document.getElementById(`val${i}`).value);
-      }
-      for (let i = 0; i < n; ++i) {
-        matriz.push([]);
-      }
-      for (let i = 0; i < n * n; ++i) {
-        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-        console.log(matriz[l][k]);
-        k++;
-        if (k === n) {
-          k = 0;
-          l++;
-        }
+      k++;
+      if (k === fc) {
+        k = 0;
+        l++;
       }
     }
     for (let i = 0; i < n; ++i) {
@@ -192,6 +186,7 @@ const generateGraph = () => {
     }
     console.log(texts);
     console.log(vector);
+    console.log(matriz);
     const nodeDataArray = [];
     for (let i = 0; i < n; i++) {
       nodeDataArray.push({ key: names[i], text: (vn ? vector[i] : texts[i]), color: go.Brush.randomColor(128, 240) });
