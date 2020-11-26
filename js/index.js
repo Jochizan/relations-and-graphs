@@ -46,22 +46,30 @@ const calcular = () => {
   let fc = 0;
   let j = 1;
   matriz = [];
+  const messages = document.getElementById("messages-important");
   while (document.getElementById(`val${j}`) !== null) {
     fc++;
     j++;
+  }
+  if (fc < 1) {
+    document.getElementById("messages-important").innerHTML = "NO PODEMOS EVALUAR MATRICES NULAS";
+    return console.error("Error no puede mandar matrices nulas");
   }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
   for (let i = 0; i < fc * fc; ++i) {
-    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    if (parseInt(document.getElementById(`input${i+1}`).value) > -1) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    } else {
+      return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓ";
+    }
     k++;
     if (k == fc) {
       k = 0;
       l++;
     }
   }
-  const messages = document.getElementById("messages-important");
   messages.innerHTML = "";
   (reflexivo(matriz))
     ? messages.innerHTML += "<p>SI ES REFLEXIVO</p>"
