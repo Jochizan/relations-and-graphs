@@ -134,7 +134,7 @@ const generarMatriz = () => {
   let numInputs = 1;
   let val = 1;
   doc.innerHTML = "";
-  if (fc >= 21) {
+  if (fc >= 20) {
     return document.getElementById("stock").innerHTML = "LO SENTIMOS NO TENEMOS SOPORTE PARA MATRICES TAN GRANDES";
   }
   for (let i = 0; i < n + 1; ++i) {
@@ -164,9 +164,9 @@ const generarMatriz = () => {
 
 const generarVector = () => {
   if (!validateFirst()) {
-    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR LA VECTOR";
+    return document.getElementById("messageValid").innerHTML = "NO SE PUEDE GENERAR EL VECTOR";
   } else {
-    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR LA VECTOR";
+    document.getElementById("messageValid").innerHTML = "SI SE PUDO GENERAR EL VECTOR";
   }
   const mostrar = document.getElementById("expression-preview-ruler");
   const title = document.getElementById("title-expression")
@@ -195,8 +195,7 @@ const generarVector = () => {
     for (let i = Math.ceil(principio); i < final; ++i) {
       vector.push(i);
     }
-  } else if (condition1 === "<" && condition2 === "<=") {
-    let ok = (Math.floor(principio) === principio)
+  } else if (condition1 === "<" && condition2 === "<=") { let ok = (Math.floor(principio) === principio)
     if(!ok)
       principio = Math.ceil(principio)
     else
@@ -220,11 +219,10 @@ const generarVector = () => {
   title.innerHTML = "Estos son los valores que cumplen la condición anterior"
   mostrar.innerHTML = "";
   for (let i = 0; i < vector.length - 1; ++i) {
-    mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[i]}},</p>`
+    mostrar.innerHTML += `<p style="font-size: 3.0rem;">{${vector[i]}},</p>`
   }
-  mostrar.innerHTML += `<p style="font-size: 3.2rem;">{${vector[vector.length - 1]}}</p>`
+  mostrar.innerHTML += `<p style="font-size: 3.0rem;">{${vector[vector.length - 1]}}</p>`
   console.log(vector);
-  //return vector;
 }
 
 const reflexivo = (matriz=[]) => {
