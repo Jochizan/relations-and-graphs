@@ -88,7 +88,7 @@ const generateGraphAleatory = () => {
   const names = [
     "Joshua", "Kathryn", "Robert", "Jason", "Scott", "Betsy", "John",
     "Walter", "Gabriel", "Simon", "Emily", "Tina", "Elena", "Samuel",
-    "Jacob", "Michael", "Juliana", "Natalie", "Grace", "Ashley", "Dylan"
+    "Joan", "Estefany", "Piero", "Aldair", "Nicol", "Paul", "José"
   ];
   const nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
@@ -106,47 +106,107 @@ const generateGraphAleatory = () => {
 
 // Create an assign a model that Array values.
 const generateGraph = () => {
-  let fc = parseInt(document.getElementById("fc").value);
-  let paths = document.getElementById("myPaths");
-  paths.innerHTML = "";
-  const names = [];
-  const matriz = [];
-  const texts = [];
+  if (matriz.length >= 21) {
+    return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
+  }
   let k = 0;
   let l = 0;
-  for (let i = 1; i < fc + 1; ++i) {
-    texts.push(document.getElementById(`val${i}`).value);
-    console.log(texts[i-1]);
-  }
-  for (let i = 0; i < fc; ++i) {
-    matriz.push([]);
-  }
-  for (let i = 0; i < fc * fc; ++i) {
-    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-    k++;
-    if (k == fc) {
-      k = 0;
-      l++;
+  const paths = document.getElementById("myPaths");
+  const fc = parseInt(document.getElementById("fc").value);
+  const names = [];
+  const texts = [];
+  if (!matriz.length) {
+    paths.innerHTML = "";
+    matriz = [];
+    for (let i = 1; i < fc + 1; ++i) {
+      texts.push(document.getElementById(`val${i}`).value);
     }
-  }
-  for (let i = 0; i < fc; ++i) {
-    names.push("" + (i + 1));
-  }
-  const nodeDataArray = [];
-  for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
-  }
-  const linkDataArray = [];
-  let num = nodeDataArray.length;
-  for (let i = 0; i < num; i++) {
-    for (let j = 0; j < num; j++) {
-      let a = names[i], b = names[j];
-      if (matriz[i][j] === 1) {
-        linkDataArray.push({ from: a, to: b, color: go.Brush.randomColor(0, 127) });
+    for (let i = 0; i < fc; ++i) {
+      matriz.push([]);
+    }
+    for (let i = 0; i < fc * fc; ++i) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+      k++;
+      if (k === fc) {
+        k = 0;
+        l++;
       }
     }
+    for (let i = 0; i < fc; ++i) {
+      names.push("" + (i + 1));
+    }
+    const nodeDataArray = [];
+    for (let i = 0; i < names.length; i++) {
+      nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
+    }
+    const linkDataArray = [];
+    let num = nodeDataArray.length;
+    for (let i = 0; i < num; i++) {
+      for (let j = 0; j < num; j++) {
+        if (matriz[i][j] === 1) {
+          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
+        }
+      }
+    }
+    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+  } else {
+    const n = matriz.length;
+    const vn = vector.length;
+    paths.innerHTML = "";
+    matriz = [];
+    if (fc > 0) {
+      for (let i = 1; i < fc + 1; ++i) {
+        texts.push(document.getElementById(`val${i}`).value);
+      }
+      for (let i = 0; i < fc; ++i) {
+        matriz.push([]);
+      }
+      for (let i = 0; i < fc * fc; ++i) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+        console.log(matriz[l][k]);
+        k++;
+        if (k === fc) {
+          k = 0;
+          l++;
+        }
+      }
+    } else {
+      for (let i = 1; i < n + 1; ++i) {
+        texts.push(document.getElementById(`val${i}`).value);
+      }
+      for (let i = 0; i < n; ++i) {
+        matriz.push([]);
+      }
+      for (let i = 0; i < n * n; ++i) {
+        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+        console.log(matriz[l][k]);
+        k++;
+        if (k === n) {
+          k = 0;
+          l++;
+        }
+      }
+    }
+    for (let i = 0; i < n; ++i) {
+      names.push("" + (i + 1));
+    }
+    console.log(texts);
+    console.log(vector);
+    const nodeDataArray = [];
+    for (let i = 0; i < n; i++) {
+      nodeDataArray.push({ key: names[i], text: (vn ? vector[i] : texts[i]), color: go.Brush.randomColor(128, 240) });
+    }
+    const linkDataArray = [];
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        if (matriz[i][j] === 1) {
+          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
+        }
+      }
+    }
+    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+    console.log("Que rica Grafica 💕🖤🤎💜💙💚💛🧡");
   }
-  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
 }
 
 // Select two nodes at random for which there is a path that connects from the first one to the second one.
@@ -155,11 +215,11 @@ const chooseTwoNodes = () => {
   let num = myDiagram.model.nodeDataArray.length;
   let node1 = null;
   let node2 = null;
-  for (let i = Math.floor(Math.random()*num); i < num*2; i++) {
+  for (let i = Math.floor(Math.random() * num); i < num * 2; i++) {
     node1 = myDiagram.findNodeForKey(i%num);
     let distances = findDistances(node1);
-    for (let j = Math.floor(Math.random()*num); j < num*2; j++) {
-      node2 = myDiagram.findNodeForKey(j%num);
+    for (let j = Math.floor(Math.random() * num); j < num * 2; j++) {
+      node2 = myDiagram.findNodeForKey(j % num);
       let dist = distances.get(node2);
       if (dist > 1 && dist < Infinity) {
         node1.isSelected = true;
@@ -258,7 +318,9 @@ const highlightPath = (path) => {
   for (let i = 0; i < path.count - 1; i++) {
     let f = path.get(i);
     let t = path.get(i + 1);
-    f.findLinksTo(t).each((l) => { l.isHighlighted = true; });
+    f.findLinksTo(t).each((l) => {
+      l.isHighlighted = true; 
+    });
   }
 }
 
@@ -371,7 +433,8 @@ const collectAllPaths = (begin, end) => {
   let coll = new go.List(/*go.List*/);
   const find = (source, end) => {
     source.findNodesOutOf().each((n) => {
-      if (n === source) return;  // ignore reflexive links
+      if (n === source) 
+        return;  // ignore reflexive links
       if (n === end) {  // success
         let path = stack.copy();
         path.add(end);  // finish the path at the end node
