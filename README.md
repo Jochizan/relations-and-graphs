@@ -3,7 +3,13 @@
 
 ## 😎😎😎😎😎😎😎😎😎😎😎
 
+### Primera Versión
+
 ![fotoCodigo](./img/carbon.png)
+
+### Segunda Versión
+
+![fotoCodigo2](./img/screenCoding2.png)
 
 ### Autores:
 - Fabian Sinti Estefany💙
