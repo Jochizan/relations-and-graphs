@@ -36,7 +36,6 @@ const validateBEF = () => {
   const textB = document.getElementById("expression1").value;
   const textE = document.getElementById("expression5").value;
   let ok = (textB.length > 0 && textB.length < 5) && (textE.length > 0 && textE.length < 5);
-  ok = (ok && (Math.sign(parseInt(textE) - parseInt(textB)) === 1));
   return (/[0-9]*[\s]*/g.test(textB) && /[0-9]*[\s]*/g.test(textE) && ok)
     ? true
     : false;
@@ -60,8 +59,8 @@ const validateExpresionF = () => {
 
 const validateBES = () => {
   const textE = document.getElementById("expression9").value;
+  console.log(textE);
   let ok = (textE.length > 0 && textE.length < 5);
-  ok = (ok && (Math.sign(parseInt(textE)) === 1));
   return (/[0-9]*[\s]*/g.test(textE) && ok)
     ? true
     : false;
