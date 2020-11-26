@@ -116,6 +116,7 @@ const generateGraph = () => {
   const names = [];
   const texts = [];
   if (!matriz.length) {
+    console.log("Estoy aqui 💙");
     paths.innerHTML = "";
     matriz = [];
     for (let i = 1; i < fc + 1; ++i) {
@@ -153,8 +154,10 @@ const generateGraph = () => {
     const n = matriz.length;
     const vn = vector.length;
     paths.innerHTML = "";
-    matriz = [];
     if (fc > 0) {
+      matriz = [];
+      console.log("Estoy aqui 💚");
+      console.log(matriz);
       for (let i = 1; i < fc + 1; ++i) {
         texts.push(document.getElementById(`val${i}`).value);
       }
@@ -171,7 +174,11 @@ const generateGraph = () => {
         }
       }
     } else {
+      console.log("Estoy aqui ❤");
+      console.log(matriz);
+      console.log(n);
       for (let i = 1; i < n + 1; ++i) {
+        console.log(document.getElementById(`val${i}`).value);
         texts.push(document.getElementById(`val${i}`).value);
       }
       for (let i = 0; i < n; ++i) {

@@ -13,7 +13,6 @@ const crearArray = () => {
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
-  let range = 1;
   for (let i = 0; i < fc + 1; ++i) {
     doc.innerHTML += `<div>`
     for (let j = 0; j < fc + 1; ++j) {
@@ -26,15 +25,14 @@ const crearArray = () => {
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         val++;
-        range++;
-        if (range - 1 === fc) {
-          range = 1;
+        if (val - 1 === fc) {
+          val = 1;
         }
       }
     }
@@ -43,14 +41,15 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  const mfc = document.getElementById("fc").value;
-  let k = 0;
   let l = 0;
+  let k = 0;
   let fc = 0;
-  (mfc > 0)
-    ? fc = mfc
-    : fc = matriz.length;
+  let j = 1;
   matriz = [];
+  while (document.getElementById(`val${j}`) !== null) {
+    fc++;
+    j++;
+  }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
@@ -155,6 +154,9 @@ const generarMatriz = () => {
           doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[j-1]}">`;
         }
         val++;
+        if (val === n + 1) {
+          val = 1;
+        }
       }
     }
     doc.innerHTML += `</div>`
@@ -237,8 +239,6 @@ const reflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const irreflexivo = (matriz=[]) => {
@@ -253,8 +253,6 @@ const irreflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const simetrica = (matriz=[]) => {
@@ -274,87 +272,109 @@ const simetrica = (matriz=[]) => {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  return ok
 }
 
 const asimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es asimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // llamamos la función irreflexivo para saber si existen valores en la diagonal diferentes de 0
   if (!irreflexivo(matriz)) {
     return !ok;
   }
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores si la matriz no considere los valores 0 en ambos lados
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir 
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  // retornamos el valor de ok que define si es asimetrica o no
+  return ok
 }
 
 const antisimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es ansimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores de la matriz no considere los valores 0 en ambos lados
+        // y solo actue cuando los valores de la matriz sean iguales pero diferentes de 0
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir de este iterador
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  // retornamos el valor de ok que define si es antisimetrica o no
+  return ok;
 }
 
 const transitiva = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // transitividad define si la matriz es asimetrica
   let transitividad = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if decimos que solo evaluaremos si encontramos algun 1 en la fila
       if (matriz[i][j] === 1) {
+        // con este for evaluaremos si existe un j, k === 1 && un i, k === 0 lo cual viola la transitividad
         for (let k = 0; k < n; ++k) {
           if (matriz[j][k] === 1 && matriz[i][k] === 0) {
+            // asignamos el valor de falso a transitividad
             transitividad = false;
+            // salimos del primer for
             break;
           }
         }
       }
+      // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
       if (!transitividad) {
         break;
       }
     }
+    // para finalmente salir de todos los iterdores
     if (!transitividad) {
       break;
     }
   }
-  return (transitividad)
-    ? true
-    : false;
+  // retornamos el valor de transitividad que define si es transitiva o no
+  return transitividad;
 }
