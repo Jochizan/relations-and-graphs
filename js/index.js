@@ -13,7 +13,6 @@ const crearArray = () => {
   doc.innerHTML = "";
   let numInputs = 1;
   let val = 1;
-  let range = 1;
   for (let i = 0; i < fc + 1; ++i) {
     doc.innerHTML += `<div>`
     for (let j = 0; j < fc + 1; ++j) {
@@ -26,15 +25,14 @@ const crearArray = () => {
           continue;
         }
         if (i !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         if (j !== 0) {
-          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${range}">`;
+          doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${val}">`;
         }
         val++;
-        range++;
-        if (range - 1 ===fc) {
-          range = 1;
+        if (val - 1 === fc) {
+          val = 1;
         }
       }
     }
@@ -43,45 +41,54 @@ const crearArray = () => {
 }
 
 const calcular = () => {
-  const mfc = document.getElementById("fc").value;
-  let k = 0;
   let l = 0;
+  let k = 0;
   let fc = 0;
-  (mfc > 0)
-    ? fc = mfc
-    : fc = matriz.length;
+  let j = 1;
   matriz = [];
+  const messages = document.getElementById("messages-important");
+  while (document.getElementById(`val${j}`) !== null) {
+    fc++;
+    j++;
+  }
+  if (fc < 1) {
+    document.getElementById("messages-important").innerHTML = "NO PODEMOS EVALUAR MATRICES NULAS";
+    return console.error("Error no puede mandar matrices nulas");
+  }
   for (let i = 0; i < fc; ++i) {
     matriz.push([]);
   }
   for (let i = 0; i < fc * fc; ++i) {
-    matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
+    } else {
+      return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
+    }
     k++;
     if (k == fc) {
       k = 0;
       l++;
     }
   }
-  const messages = document.getElementById("messages-important");
   messages.innerHTML = "";
   (reflexivo(matriz))
-    ? messages.innerHTML += "<p>SI ES REFLEXIVO</p>"
-    : messages.innerHTML += "<p>NO ES REFLEXIVO</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES REFLEXIVO</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES REFLEXIVO</p>`;
   (irreflexivo(matriz))
-    ? messages.innerHTML += "<p>SI ES IRREFLEXIVO</p>"
-    : messages.innerHTML += "<p>NO ES IRREFLEXIVO</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES IRREFLEXIVO</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES IRREFLEXIVO</p>`;
   (simetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES SIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES SIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES SIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES SIMETRICA</p>`;
   (asimetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES ASIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES ASIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES ASIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES ASIMETRICA</p>`;
   (antisimetrica(matriz))
-    ? messages.innerHTML += "<p>SI ES ANTISIMETRICA</p>"
-    : messages.innerHTML += "<p>NO ES ANTISIMETRICA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES ANTISIMETRICA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES ANTISIMETRICA</p>`;
   (transitiva(matriz))
-    ? messages.innerHTML += "<p>SI ES TRANSITIVA</p>"
-    : messages.innerHTML += "<p>NO ES TRANSITIVA</p>";
+    ? messages.innerHTML += `<p style="color: red;">SI ES TRANSITIVA</p>`
+    : messages.innerHTML += `<p style="color: black;">NO ES TRANSITIVA</p>`;
   console.log(matriz);
 }
 
@@ -100,34 +107,51 @@ const generarMatriz = () => {
   for (let i = 0; i < n; ++i) {
     matriz.push([]);
   }
-  for (let i = 0; i < n; ++i) {
-    for (let j = 0; j < n; ++j) {
+  if (condition2 === "=") {
+    for (let i = 0; i < n; ++i) {
       const x = "x=" + vector[i];
       const solution = nerdamer.solveEquations([text, x]);
       let relacion = 0;
-      console.log(solution);
-      if (condition2 === ">") {
-        if (solution[1][1] < vector[j]) {
-          relacion = 1;
-        }
-      } else if (condition2 === ">=") {
-        if (solution[1][1] <= vector[j]) {
-          relacion = 1;
-        }
-      } else if (condition2 === "=") {
+      if (solution[0][1] <= vector[n - 1] && solution[0][1] >= vector[0]) {
         if (solution[1][1] <= vector[n - 1] && solution[1][1] >= vector[0]) {
           relacion = 1;
         }
-      } else if (condition2 === "<") {
-        if (solution[1][1] > vector[j]) {
-          relacion = 1;
-        }
-      } else {
-        if (solution[1][1] >= vector[j]) {
-          relacion = 1;
+      }
+      for (let j = 0; j < n; ++j) {
+        if (vector[j] === solution[1][1]) {
+          matriz[i][j] = relacion;
+        } else {
+          matriz[i][j] = 0;
         }
       }
-      matriz[i][j] = relacion;
+    }
+  } else {
+    for (let i = 0; i < n; ++i) {
+      for (let j = 0; j < n; ++j) {
+        console.log(vector);
+        const x = "x=" + vector[i];
+        const solution = nerdamer.solveEquations([text, x]);
+        let relacion = 0;
+        console.log(solution);
+        if (condition2 === ">") {
+          if (solution[1][1] < vector[j]) {
+            relacion = 1;
+          }
+        } else if (condition2 === ">=") {
+          if (solution[1][1] <= vector[j]) {
+            relacion = 1;
+          }
+        } else if (condition2 === "<") {
+          if (solution[1][1] > vector[j]) {
+            relacion = 1;
+          }
+        } else {
+          if (solution[1][1] >= vector[j]) {
+            relacion = 1;
+          }
+        }
+        matriz[i][j] = relacion;
+      }
     }
   }
   const doc = document.getElementById("stock");
@@ -155,6 +179,9 @@ const generarMatriz = () => {
           doc.innerHTML += `<input id="val${val}" class="inputs-array" value="${vector[j-1]}">`;
         }
         val++;
+        if (val === n + 1) {
+          val = 1;
+        }
       }
     }
     doc.innerHTML += `</div>`
@@ -195,7 +222,8 @@ const generarVector = () => {
     for (let i = Math.ceil(principio); i < final; ++i) {
       vector.push(i);
     }
-  } else if (condition1 === "<" && condition2 === "<=") { let ok = (Math.floor(principio) === principio)
+  } else if (condition1 === "<" && condition2 === "<=") {
+    let ok = (Math.floor(principio) === principio)
     if(!ok)
       principio = Math.ceil(principio)
     else
@@ -237,8 +265,6 @@ const reflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const irreflexivo = (matriz=[]) => {
@@ -253,8 +279,6 @@ const irreflexivo = (matriz=[]) => {
     }
   }
   return (count === fc)
-    ? true
-    : false;
 }
 
 const simetrica = (matriz=[]) => {
@@ -274,87 +298,109 @@ const simetrica = (matriz=[]) => {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  return ok
 }
 
 const asimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es asimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // llamamos la función irreflexivo para saber si existen valores en la diagonal diferentes de 0
   if (!irreflexivo(matriz)) {
     return !ok;
   }
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores si la matriz no considere los valores 0 en ambos lados
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir 
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  // retornamos el valor de ok que define si es asimetrica o no
+  return ok
 }
 
 const antisimetrica = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // ok define si la matriz es ansimetrica
   let ok = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if evitamos los valores de la diagonal
       if (i !== j) {
+        // con este if definimos si los valores de la matriz no considere los valores 0 en ambos lados
+        // y solo actue cuando los valores de la matriz sean iguales pero diferentes de 0
         if (matriz[i][j] === matriz[j][i] && matriz[i][j] !== 0 && matriz[j][i] !== 0) {
+          // si en caso se cumple la condición anterior
           ok = false;
+          // usamos un break para salir de este iterador
           break;
         }
       }
     }
+    // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
     if (!ok) {
       break;
     }
   }
-  return (ok)
-    ? true
-    : false;
+  // retornamos el valor de ok que define si es antisimetrica o no
+  return ok;
 }
 
 const transitiva = (matriz=[]) => {
   if (!matriz.length) {
     return console.error("Error no puede ingresar una matriz nula");
   }
+  // transitividad define si la matriz es asimetrica
   let transitividad = true;
+  // n define el largo de la matriz
   let n = matriz.length;
+  // Usamos dos iteradores for para recorrer la matriz
   for (let i = 0; i < n; ++i) {
     for (let j = 0; j < n; ++j) {
+      // con este if decimos que solo evaluaremos si encontramos algun 1 en la fila
       if (matriz[i][j] === 1) {
+        // con este for evaluaremos si existe un j, k === 1 && un i, k === 0 lo cual viola la transitividad
         for (let k = 0; k < n; ++k) {
           if (matriz[j][k] === 1 && matriz[i][k] === 0) {
+            // asignamos el valor de falso a transitividad
             transitividad = false;
+            // salimos del primer for
             break;
           }
         }
       }
+      // para no seguir iterando en caso se haya cumplido el if con la sentencia break anterior
       if (!transitividad) {
         break;
       }
     }
+    // para finalmente salir de todos los iterdores
     if (!transitividad) {
       break;
     }
   }
-  return (transitividad)
-    ? true
-    : false;
+  // retornamos el valor de transitividad que define si es transitiva o no
+  return transitividad;
 }
