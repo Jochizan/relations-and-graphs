@@ -1,69 +1,89 @@
 const init = () => {
-  if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
-  let $ = go.GraphObject.make;  // for conciseness in defining templates
-  myDiagram =
-    $(go.Diagram, "myDiagramDiv", // must be the ID or a reference to a DIV
-      {
-        initialAutoScale: go.Diagram.Uniform,
-        contentAlignment: go.Spot.Center,
-        layout: $(go.ForceDirectedLayout, { defaultSpringLength: 10, maxIterations: 300 }),
-        maxSelectionCount: 2
-      });
+  if (window.goSamples) goSamples(); // init for these samples -- you don't need to call this
+  let $ = go.GraphObject.make; // for conciseness in defining templates
+  myDiagram = $(
+    go.Diagram,
+    "myDiagramDiv", // must be the ID or a reference to a DIV
+    {
+      initialAutoScale: go.Diagram.Uniform,
+      contentAlignment: go.Spot.Center,
+      layout: $(go.ForceDirectedLayout, {
+        defaultSpringLength: 10,
+        maxIterations: 300,
+      }),
+      maxSelectionCount: 2,
+    }
+  );
   // define the Node template
-  myDiagram.nodeTemplate =
-    $(go.Node, "Horizontal",
-      {
-        locationSpot: go.Spot.Center,  // Node.location is the center of the Shape
-        locationObjectName: "SHAPE",
-        selectionAdorned: false,
-        selectionChanged: nodeSelectionChanged  // defined below
-      },
-      $(go.Panel, "Spot",
-        $(go.Shape, "Circle",
-          {
-            name: "SHAPE",
-            fill: "lightgray",  // default value, but also data-bound
-            strokeWidth: 0,
-            desiredSize: new go.Size(45, 45),
-            portId: ""  // so links will go to the shape, not the whole node
-          },
-          new go.Binding("fill", "isSelected", (s, obj) => {
-            return s ? "red" : obj.part.data.color;
-          }).ofObject()),
-        $(go.TextBlock,
-          new go.Binding("text", "distance", (d) => {
-            return (d === Infinity) ? "INF" : d | 0;
-          }))),
-      $(go.TextBlock,
-        new go.Binding("text"))
-    );
+  myDiagram.nodeTemplate = $(
+    go.Node,
+    "Horizontal",
+    {
+      locationSpot: go.Spot.Center, // Node.location is the center of the Shape
+      locationObjectName: "SHAPE",
+      selectionAdorned: false,
+      selectionChanged: nodeSelectionChanged, // defined below
+    },
+    $(
+      go.Panel,
+      "Spot",
+      $(
+        go.Shape,
+        "Circle",
+        {
+          name: "SHAPE",
+          fill: "lightgray", // default value, but also data-bound
+          strokeWidth: 0,
+          desiredSize: new go.Size(45, 45),
+          portId: "", // so links will go to the shape, not the whole node
+        },
+        new go.Binding("fill", "isSelected", (s, obj) => {
+          return s ? "red" : obj.part.data.color;
+        }).ofObject()
+      ),
+      $(
+        go.TextBlock,
+        new go.Binding("text", "distance", (d) => {
+          return d === Infinity ? "INF" : d | 0;
+        })
+      )
+    ),
+    $(go.TextBlock, new go.Binding("text"))
+  );
   // define the Link template
-  myDiagram.linkTemplate =
-    $(go.Link,
-      {
-        selectable: false,      // links cannot be selected by the user
-        curve: go.Link.Bezier,
-        layerName: "Background"  // don't cross in front of any nodes
-      },
-      $(go.Shape,  // this shape only shows when it isHighlighted
-        { isPanelMain: true, stroke: null, strokeWidth: 5 },
-        new go.Binding("stroke", "isHighlighted", (h) => { return h ? "red" : null; }).ofObject()),
-      $(go.Shape,
-        // mark each Shape to get the link geometry with isPanelMain: true
-        { isPanelMain: true, stroke: "black", strokeWidth: 3 },
-        new go.Binding("stroke", "color")),
-      $(go.Shape, { toArrow: "Standard" })
-    );
+  myDiagram.linkTemplate = $(
+    go.Link,
+    {
+      selectable: false, // links cannot be selected by the user
+      curve: go.Link.Bezier,
+      layerName: "Background", // don't cross in front of any nodes
+    },
+    $(
+      go.Shape, // this shape only shows when it isHighlighted
+      { isPanelMain: true, stroke: null, strokeWidth: 5 },
+      new go.Binding("stroke", "isHighlighted", (h) => {
+        return h ? "red" : null;
+      }).ofObject()
+    ),
+    $(
+      go.Shape,
+      // mark each Shape to get the link geometry with isPanelMain: true
+      { isPanelMain: true, stroke: "black", strokeWidth: 3 },
+      new go.Binding("stroke", "color")
+    ),
+    $(go.Shape, { toArrow: "Standard" })
+  );
   // Override the clickSelectingTool's standardMouseSelect
   // If less than 2 nodes are selected, always add to the selection
-  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = function() {
+  myDiagram.toolManager.clickSelectingTool.standardMouseSelect = function () {
     let diagram = this.diagram;
     if (diagram === null || !diagram.allowSelect) return;
     let e = diagram.lastInput;
     let count = diagram.selection.count;
     let curobj = diagram.findPartAt(e.documentPoint, false);
     if (curobj !== null) {
-      if (count < 2) {  // add the part to the selection
+      if (count < 2) {
+        // add the part to the selection
         if (!curobj.isSelected) {
           let part = curobj;
           if (part !== null) part.isSelected = true;
@@ -78,35 +98,57 @@ const init = () => {
       // left click on background with no modifier: clear selection
       diagram.clearSelection();
     }
-  }
+  };
   generateGraphAleatory();
   chooseTwoNodes();
-}
+};
 
 // Create an assign a model that has a bunch of nodes with a bunch of random links between them.
 const generateGraphAleatory = () => {
   const names = [
-    "Alisson", "Indira", "Renato", "Luigui", "Mauricio", "Fernando", "Victoria",
-    "Joan", "Estefany", "Piero", "Aldair", "Nicol", "Paul", "José"
+    "Alisson",
+    "Indira",
+    "Renato",
+    "Luigui",
+    "Mauricio",
+    "Fernando",
+    "Victoria",
+    "Joan",
+    "Estefany",
+    "Piero",
+    "Aldair",
+    "Nicol",
+    "Paul",
+    "José",
   ];
   const nodeDataArray = [];
   for (let i = 0; i < names.length; i++) {
-    nodeDataArray.push({ key: i, text: names[i], color: go.Brush.randomColor(128, 240) });
+    nodeDataArray.push({
+      key: i,
+      text: names[i],
+      color: go.Brush.randomColor(128, 240),
+    });
   }
   const linkDataArray = [];
   let num = nodeDataArray.length;
   for (let i = 0; i < num * 2; i++) {
-    let a = Math.floor(i/2);
-    let b = Math.floor(Math.random() * num / 4) + 1;
-    linkDataArray.push({ from: a, to: (a + b) % num, color: go.Brush.randomColor(0, 127) });
+    let a = Math.floor(i / 2);
+    let b = Math.floor((Math.random() * num) / 4) + 1;
+    linkDataArray.push({
+      from: a,
+      to: (a + b) % num,
+      color: go.Brush.randomColor(0, 127),
+    });
   }
   myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-}
+};
 
 // Create an assign a model that Array values.
 const generateGraph = () => {
   if (matriz.length >= 21) {
-    return console.error("Lo sentimos no tenemos soporte para matrices tan grandes");
+    return console.error(
+      "Lo sentimos no tenemos soporte para matrices tan grandes"
+    );
   }
   let k = 0;
   let l = 0;
@@ -116,96 +158,66 @@ const generateGraph = () => {
   const mfc = parseInt(document.getElementById("fc").value);
   const names = [];
   const texts = [];
-  if (!matriz.length) {
-    fc = mfc;
-    console.log(matriz);
-    paths.innerHTML = "";
-    matriz = [];
-    for (let i = 1; i < fc + 1; ++i) {
-      texts.push(document.getElementById(`val${i}`).value);
-    }
-    for (let i = 0; i < fc; ++i) {
-      matriz.push([]);
-    }
-    for (let i = 0; i < fc * fc; ++i) {
-      if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
-        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-      } else {
-        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
-      }
-      k++;
-      if (k === fc) {
-        k = 0;
-        l++;
-      }
-    }
-    for (let i = 0; i < fc; ++i) {
-      names.push("" + (i + 1));
-    }
-    const nodeDataArray = [];
-    for (let i = 0; i < names.length; i++) {
-      nodeDataArray.push({ key: names[i], text: texts[i], color: go.Brush.randomColor(128, 240) });
-    }
-    const linkDataArray = [];
-    let num = nodeDataArray.length;
-    for (let i = 0; i < num; i++) {
-      for (let j = 0; j < num; j++) {
-        if (matriz[i][j] === 1) {
-          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
-        }
-      }
-    }
-    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-  } else {
-    const n = matriz.length;
-    const vn = vector.length;
-    paths.innerHTML = "";
-    console.log(matriz);
-    while (document.getElementById(`val${len}`) !== null) {
-      fc++;
-      len++;
-    }
-    matriz = [];
-    for (let i = 1; i < fc + 1; ++i) {
-      texts.push(document.getElementById(`val${i}`).value);
-    }
-    for (let i = 0; i < fc; ++i) {
-      matriz.push([]);
-    }
-    for (let i = 0; i < fc * fc; ++i) {
-      if (parseInt(document.getElementById(`input${i+1}`).value) > -1 && parseInt(document.getElementById(`input${i+1}`).value) < 2) {
-        matriz[l][k] = parseInt(document.getElementById(`input${i+1}`).value);
-      } else {
-        return document.getElementById("messages-important").innerHTML = "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS";
-      }
-      k++;
-      if (k === fc) {
-        k = 0;
-        l++;
-      }
-    }
-    for (let i = 0; i < n; ++i) {
-      names.push("" + (i + 1));
-    }
-    console.log(texts);
-    console.log(vector);
-    console.log(matriz);
-    const nodeDataArray = [];
-    for (let i = 0; i < n; i++) {
-      nodeDataArray.push({ key: names[i], text: (vn ? vector[i] : texts[i]), color: go.Brush.randomColor(128, 240) });
-    }
-    const linkDataArray = [];
-    for (let i = 0; i < n; i++) {
-      for (let j = 0; j < n; j++) {
-        if (matriz[i][j] === 1) {
-          linkDataArray.push({ from: names[i], to: names[j], color: go.Brush.randomColor(0, 127) });
-        }
-      }
-    }
-    myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
-    console.log("Que rica gráfica 💕🖤🤎💜💙💚💛🧡");
+  const n = matriz.length;
+  const vn = vector.length;
+  paths.innerHTML = "";
+  console.log(matriz);
+  while (document.getElementById(`val${len}`) !== null) {
+    fc++;
+    len++;
   }
-}
+  matriz = [];
+  for (let i = 1; i < fc + 1; ++i) {
+    texts.push(document.getElementById(`val${i}`).value);
+  }
+  for (let i = 0; i < fc; ++i) {
+    matriz.push([]);
+  }
+  for (let i = 0; i < fc * fc; ++i) {
+    if (
+      parseInt(document.getElementById(`input${i + 1}`).value) > -1 &&
+      parseInt(document.getElementById(`input${i + 1}`).value) < 2
+    ) {
+      matriz[l][k] = parseInt(document.getElementById(`input${i + 1}`).value);
+    } else {
+      return (document.getElementById("messages-important").innerHTML =
+        "HAY UNO O MÁS CASILLEROS VACIÓS O HAY VALORES NO VÁLIDOS");
+    }
+    k++;
+    if (k === fc) {
+      k = 0;
+      l++;
+    }
+  }
+  for (let i = 0; i < n; ++i) {
+    names.push("" + (i + 1));
+  }
+  console.log(texts);
+  console.log(vector);
+  console.log(matriz);
+  const nodeDataArray = [];
+  for (let i = 0; i < n; i++) {
+    nodeDataArray.push({
+      key: names[i],
+      text: vn ? vector[i] : texts[i],
+      color: go.Brush.randomColor(128, 240),
+    });
+  }
+  const linkDataArray = [];
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (matriz[i][j] === 1) {
+        linkDataArray.push({
+          from: names[i],
+          to: names[j],
+          color: go.Brush.randomColor(0, 127),
+        });
+      }
+    }
+  }
+  myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+  console.log("Que rica gráfica 💕🖤🤎💜💙💚💛🧡");
+};
 
 // Select two nodes at random for which there is a path that connects from the first one to the second one.
 const chooseTwoNodes = () => {
@@ -214,7 +226,7 @@ const chooseTwoNodes = () => {
   let node1 = null;
   let node2 = null;
   for (let i = Math.floor(Math.random() * num); i < num * 2; i++) {
-    node1 = myDiagram.findNodeForKey(i%num);
+    node1 = myDiagram.findNodeForKey(i % num);
     let distances = findDistances(node1);
     for (let j = Math.floor(Math.random() * num); j < num * 2; j++) {
       node2 = myDiagram.findNodeForKey(j % num);
@@ -227,7 +239,7 @@ const chooseTwoNodes = () => {
     }
     if (myDiagram.selection.count > 0) break;
   }
-}
+};
 
 // This event handler is declared in the node template and is called when a node's
 //   Node.isSelected property changes value.
@@ -246,14 +258,14 @@ const nodeSelectionChanged = (node) => {
     let begin = diagram.selection.first();
     showDistances(begin);
     if (diagram.selection.count === 2) {
-      let end = node;  // just became selected
+      let end = node; // just became selected
       // highlight the shortest path
       highlightShortestPath(begin, end);
       // list all paths
       listAllPaths(begin, end);
     }
   }
-}
+};
 
 // Have each node show how far it is from the BEGIN node.
 // This sets the "distance" property on each node.data.
@@ -267,13 +279,13 @@ const showDistances = (begin) => {
     let dist = it.value;
     myDiagram.model.setDataProperty(n.data, "distance", dist);
   }
-}
+};
 
 // Highlight links along one of the shortest paths between the BEGIN and the END nodes.
 // Assume links are directional.
 const highlightShortestPath = (begin, end) => {
   highlightPath(findShortestPath(begin, end));
-}
+};
 
 // A collection of all of the paths between a pair of nodes, a List of Lists of Nodes
 let paths = null;
@@ -283,14 +295,14 @@ const listAllPaths = (begin, end) => {
   paths = collectAllPaths(begin, end);
   // update the Selection element with a bunch of Option elements, one per path
   let sel = document.getElementById("myPaths");
-  sel.innerHTML = "";  // clear out any old Option elements
+  sel.innerHTML = ""; // clear out any old Option elements
   paths.each((p) => {
     let opt = document.createElement("option");
     opt.text = pathToString(p);
     sel.add(opt, null);
   });
   sel.onchange = highlightSelectedPath;
-}
+};
 
 // Return a string representation of a path for humans to read.
 const pathToString = (path) => {
@@ -300,7 +312,7 @@ const pathToString = (path) => {
     s += path.get(i).data.text;
   }
   return s;
-}
+};
 
 // This is only used for listing all paths for the selection onchange event.
 // When the selected item changes in the Selection element,
@@ -308,7 +320,7 @@ const pathToString = (path) => {
 const highlightSelectedPath = () => {
   let sel = document.getElementById("myPaths");
   highlightPath(paths.get(sel.selectedIndex));
-}
+};
 
 // Highlight a particular path, a List of Nodes.
 const highlightPath = (path) => {
@@ -317,10 +329,10 @@ const highlightPath = (path) => {
     let f = path.get(i);
     let t = path.get(i + 1);
     f.findLinksTo(t).each((l) => {
-      l.isHighlighted = true; 
+      l.isHighlighted = true;
     });
   }
-}
+};
 
 // There are three bits of functionality here:
 // 1: findDistances(Node) computes the distance of each Node from the given Node.
@@ -367,7 +379,7 @@ const findDistances = (source) => {
       if (finished.has(neighbor)) continue;
       let neighbordist = distances.get(neighbor);
       // assume "distance" along a link is unitary, but could be any non-negative number.
-      let dist = leastdist + 1;  //Math.sqrt(least.location.distanceSquaredPoint(neighbor.location));
+      let dist = leastdist + 1; //Math.sqrt(least.location.distanceSquaredPoint(neighbor.location));
       if (dist < neighbordist) {
         // if haven't seen that node before, add it to the SEEN collection
         if (neighbordist === Infinity) {
@@ -379,7 +391,7 @@ const findDistances = (source) => {
     }
   }
   return distances;
-}
+};
 
 // This helper function finds a Node in the given collection that has the smallest distance.
 const leastNode = (coll, distances) => {
@@ -395,7 +407,7 @@ const leastNode = (coll, distances) => {
     }
   }
   return bestnode;
-}
+};
 
 // Find a path that is shortest from the BEGIN node to the END node.
 // (There might be more than one, and there might be none.)
@@ -409,9 +421,9 @@ const findShortestPath = (begin, end) => {
     let next = leastNode(end.findNodesInto(), distances);
     if (next !== null) {
       if (distances.get(next) < distances.get(end)) {
-        path.add(next);  // making progress towards the beginning
+        path.add(next); // making progress towards the beginning
       } else {
-        next = null;  // nothing better found -- stop looking
+        next = null; // nothing better found -- stop looking
       }
     }
     end = next;
@@ -420,7 +432,7 @@ const findShortestPath = (begin, end) => {
   // NOTE: if there's no path from BEGIN to END, the first node won't be BEGIN!
   path.reverse();
   return path;
-}
+};
 
 // Recursively walk the graph starting from the BEGIN node;
 // when reaching the END node remember the list of nodes along the current path.
@@ -431,20 +443,21 @@ const collectAllPaths = (begin, end) => {
   let coll = new go.List(/*go.List*/);
   const find = (source, end) => {
     source.findNodesOutOf().each((n) => {
-      if (n === source) 
-        return;  // ignore reflexive links
-      if (n === end) {  // success
+      if (n === source) return; // ignore reflexive links
+      if (n === end) {
+        // success
         let path = stack.copy();
-        path.add(end);  // finish the path at the end node
-        coll.add(path);  // remember the whole path
-      } else if (!stack.has(n)) {  // inefficient way to check having visited
-        stack.add(n);  // remember that we've been here for this path (but not forever)
+        path.add(end); // finish the path at the end node
+        coll.add(path); // remember the whole path
+      } else if (!stack.has(n)) {
+        // inefficient way to check having visited
+        stack.add(n); // remember that we've been here for this path (but not forever)
         find(n, end);
         stack.removeAt(stack.count - 1);
-      }  // else might be a cycle
+      } // else might be a cycle
     });
-  }
-  stack.add(begin);  // start the path at the begin node
+  };
+  stack.add(begin); // start the path at the begin node
   find(begin, end);
   return coll;
-}
+};
