@@ -4,7 +4,7 @@
 ### Requisitos
 
 - Ir al sitio oficial de GoJS y descargar los releases de la pagina
-de recoemendación la versión más reciente. 
+de recomendación la versión más reciente. 
 
 - Descarga aquí [GoJs](https://gojs.net/latest/download.html)
 
